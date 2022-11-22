@@ -12,7 +12,7 @@ public class AIPlayer extends BoardModel {
     private TileScoreManager tileScoreManager = new TileScoreManager();
     BoardModel bm;
     Map<Character, Integer> letterCount;
-    HashMap<Point, ArrayList<String>> generatedGuesses;
+    HashMap<Point, HashMap<String, Boolean>> generatedGuesses;
 
     ScrabbleDictionary dictionary = new ScrabbleDictionary();
     ArrayList<PlacedWords> pAsHorizontal, pAsVertical; //prefixes and suffixes
@@ -42,7 +42,7 @@ public class AIPlayer extends BoardModel {
             Point rightLimit = checkRight(word.getEnd());
             int leftLength = word.getStartX() - (int)leftLimit.getX();
             int rightLength = (int)rightLimit.getX() - word.getEndX();
-            generatePlayableMoves(word, leftLength, rightLength);
+            generatePlayableMoves(word, leftLength, rightLength, true);
             System.out.println(this.generatedGuesses);
         }
     }
@@ -54,18 +54,19 @@ public class AIPlayer extends BoardModel {
             int downLength = (int)downLimit.getY() - word.getEndY();
             System.out.println(topLength + " ---  " + downLength);
             System.out.println(word.getWord() + " from " + word.getStart() + " to " + word.getEnd());
-            generatePlayableMoves(word, topLength, downLength);
+            generatePlayableMoves(word, topLength, downLength,false);
+            System.out.println(generatedGuesses);
         }
     }
 
-    private void generatePlayableMoves(PlacedWords word, int lengthBeforeWord, int lengthAfterWord) {
+    private void generatePlayableMoves(PlacedWords word, int lengthBeforeWord, int lengthAfterWord, boolean isHorizontal) {
         ArrayList<String> wordsWithoutCurrentSuffix= removeSuffixFromDictionaryWords(word.getWord(), lengthBeforeWord);
         ArrayList<String> wordsWithoutCurrentPrefix = removePrefixFromDictionaryWords(word.getWord(), lengthAfterWord);
         if(!wordsWithoutCurrentSuffix.isEmpty()){
-            this.generatedGuesses.put(word.getStart(),generateGuesses(wordsWithoutCurrentSuffix));
+            this.generatedGuesses.put(word.getStart(),generateGuesses(wordsWithoutCurrentSuffix,isHorizontal));
         }
         if(!wordsWithoutCurrentPrefix.isEmpty()) {
-            this.generatedGuesses.put(word.getEnd(), generateGuesses(wordsWithoutCurrentPrefix));
+            this.generatedGuesses.put(word.getEnd(), generateGuesses(wordsWithoutCurrentPrefix,isHorizontal));
         }
     }
 
@@ -144,8 +145,8 @@ public class AIPlayer extends BoardModel {
 
     //this method checks if the number of alphabets are same or not,
     // between the tray and the words passed in wordsToCheck
-    public ArrayList<String> generateGuesses(ArrayList<String> wordsToCheck) {
-        ArrayList<String> guessedWords = new ArrayList<>();
+    public HashMap<String,Boolean> generateGuesses(ArrayList<String> wordsToCheck, boolean isHorizontal) {
+        HashMap<String,Boolean> guessedWords = new HashMap<>();
         for (String word : wordsToCheck) {
             Map<Character, Integer> currentWordMap = countLetters(word);
             boolean flag = true;
@@ -158,7 +159,7 @@ public class AIPlayer extends BoardModel {
                 }
             }
             if (flag) {
-                guessedWords.add(word);
+                guessedWords.put(word, isHorizontal);
             }
         }
         return guessedWords;
