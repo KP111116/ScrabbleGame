@@ -1,2 +1,3 @@
-package PACKAGE_NAME;public class ScrabbleView {
+public interface ScrabbleView {
+    void update(ScrabbleEvent e);
 }

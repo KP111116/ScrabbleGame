@@ -1,14 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ea2ae6fe-e34d-4e45-98b5-9e090f9a475d" name="Changes" comment="" />
+    <list default="true" id="ea2ae6fe-e34d-4e45-98b5-9e090f9a475d" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AIPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AIPlayer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Bag.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Bag.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/BoardModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BoardModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ButtonController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ButtonController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Developer/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Developer/Utils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PlacedWords.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PlacedWords.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ScrabbleButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ScrabbleButton.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ScrabbleDictionary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ScrabbleDictionary.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ScrabbleEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ScrabbleEvent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ScrabbleView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ScrabbleView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/TileScoreManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TileScoreManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Tray.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tray.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="2HYZcwg3eO0NCczRWZpVgG1HsYt" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -20,9 +44,51 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false"
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "extract.method.default.visibility": "private",
+    "last_opened_file_path": "C:/Users/patel/IdeaProjects/ScrabbleGame/resources",
+    "settings.editor.selected.configurable": "preferences.pluginManager"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\patel\IdeaProjects\ScrabbleGame\resources" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.AIPlayer">
+    <configuration name="AIPlayer" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="AIPlayer" />
+      <module name="ScrabbleGame" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="BoardModel" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="BoardModel" />
+      <module name="ScrabbleGame" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ScrabbleButton" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="ScrabbleButton" />
+      <module name="ScrabbleGame" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.AIPlayer" />
+        <item itemvalue="Application.BoardModel" />
+        <item itemvalue="Application.ScrabbleButton" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -31,7 +97,25 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1668464063296</updated>
+      <workItem from="1668464064986" duration="3202000" />
+      <workItem from="1669048873929" duration="3446000" />
+      <workItem from="1669054218146" duration="2437000" />
+      <workItem from="1669093988922" duration="43278000" />
     </task>
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

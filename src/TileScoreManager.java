@@ -1,5 +1,5 @@
-public class TileScoreManger {
-    public int setTilePoints(String c) {
+public class TileScoreManager {
+    public int getTilePoints(String c) {
         c = c.replaceAll(" ", "");
         if (c.length() == 1) {
             switch (c) {

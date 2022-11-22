@@ -1,2 +1,4 @@
-package Developer;public class Utils {
+package Developer;
+
+public class Utils {
 }
