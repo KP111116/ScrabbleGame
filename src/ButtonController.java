@@ -7,14 +7,15 @@ public class ButtonController implements MouseListener {
     private String _type;
 
     public ButtonController(String _type) {
+        super();
         this._type = _type;
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        if(_type.equals("bag")){
+        if("bag".equals(this._type)){
             System.out.println("Button clicked");
-        }else if(_type.equals("board")){
+        }else if("board".equals(this._type)){
 
         }
     }

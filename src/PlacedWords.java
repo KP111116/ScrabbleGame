@@ -6,36 +6,37 @@ public class PlacedWords {
     private Point end;
 
     public PlacedWords(String word, Point start, Point end) {
+        super();
         this.word = word;
         this.start = start;
         this.end = end;
     }
 
     public String getWord() {
-        return word;
+        return this.word;
     }
 
     public Point getStart() {
-        return start;
+        return this.start;
     }
 
     public Point getEnd() {
-        return end;
+        return this.end;
     }
     public int getStartX(){
-        return (int)start.getX();
+        return (int) this.start.getX();
     }
     public int getStartY(){
-        return (int)start.getY();
+        return (int) this.start.getY();
     }
     public int getEndX(){
-        return (int)end.getX();
+        return (int) this.end.getX();
     }
     public int getEndY(){
-        return (int)end.getY();
+        return (int) this.end.getY();
     }
     public boolean isHorizontal(){
-        if(start.getY() - end.getY()== 0){
+        if(this.start.getY() - this.end.getY()== 0){
             return true;
         }
 
@@ -43,7 +44,7 @@ public class PlacedWords {
         return false;
     }
     public boolean isVertical(){
-        if(start.getX() - end.getX() == 0){
+        if(this.start.getX() - this.end.getX() == 0){
             return true;
         }
         System.out.println("Check fail -> vertical");

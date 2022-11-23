@@ -11,17 +11,18 @@ public class ScrabbleDictionary {
     private ArrayList<String> dictionary;
     private HashMap<HashMap, String> mappedWords;
     public ScrabbleDictionary() {
-        dictionary = new ArrayList<>();
-        mappedWords = new HashMap<>();
+        super();
+        this.dictionary = new ArrayList<>();
+        this.mappedWords = new HashMap<>();
         try {
             File myObj = new File(path);
             Scanner myReader = new Scanner(myObj);
 
             while (myReader.hasNextLine()) {
                 String data = myReader.nextLine();
-                dictionary.add(data);
-                HashMap<String,Integer> letterCount = countLetters(data);
-                mappedWords.put(letterCount, data);
+                this.dictionary.add(data);
+                HashMap<String, Integer> letterCount = this.countLetters(data);
+                this.mappedWords.put(letterCount, data);
             }
 
             myReader.close();
@@ -34,7 +35,7 @@ public class ScrabbleDictionary {
         word = word.toLowerCase();
         word = word.replaceAll(" ", "");
         System.out.println("In dictionary, checking " + word);
-        return dictionary.contains(word);
+        return this.dictionary.contains(word);
     }
     private HashMap<String, Integer> countLetters(String word){
         word = word.toLowerCase();
@@ -46,10 +47,10 @@ public class ScrabbleDictionary {
         return map;
     }
     public HashMap<HashMap, String> getMappedWords() {
-        return mappedWords;
+        return this.mappedWords;
     }
     public ArrayList<String> getDictionary(){
-        return this.dictionary;
+        return dictionary;
     }
 
 }

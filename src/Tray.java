@@ -5,33 +5,34 @@ public class Tray {
     private Bag b;
 
     public Tray(ArrayList<Character> tray, Bag b) {
+        super();
         this.tray = tray;
         this.b = b;
     }
     public void refill(){
-        while(tray.size() <= 7){
-            tray.add(b.getNewAlphabet());
+        while(this.tray.size() <= 7){
+            this.tray.add(this.b.getNewAlphabet());
         }
     }
     public void addAlphabet(Character _alphabet){
-        if(tray.size() <= 7) {
-            tray.add(_alphabet);
+        if(this.tray.size() <= 7) {
+            this.tray.add(_alphabet);
         }
     }
     public int getSize(){
-        return tray.size();
+        return this.tray.size();
     }
     public boolean contains(Character _alphabet){
-        return tray.contains(_alphabet);
+        return this.tray.contains(_alphabet);
     }
     public ArrayList<Character> getTray(){
-        return this.tray;
+        return tray;
     }
     public boolean removeAlphabet(Character _alphabet){
-        return tray.remove(_alphabet);
+        return this.tray.remove(_alphabet);
     }
     public String toString(){
-        return tray.toString();
+        return this.tray.toString();
     }
     
 }

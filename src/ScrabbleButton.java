@@ -11,26 +11,27 @@ public class ScrabbleButton extends JPanel{
     private Color _c;
 
     public ScrabbleButton(String _text, int _tilePoints, Point _p, Color _c, ButtonController bc) {
+        super();
         this._text = _text;
         this._p = _p;
         this._c = _c;
         this._tilePoints = _tilePoints;
-        addMouseListener(bc);
-        label = new JLabel("<html><font size = 5>"+_text+"<sub>"+_tilePoints+"</sub></font></html>", SwingConstants.CENTER );
-        setLayout(new BorderLayout(2,2));
-        setPreferredSize(new Dimension(30,30));
-        add(label);
+        this.addMouseListener(bc);
+        this.label = new JLabel("<html><font size = 5>" + _text + "<sub>" + _tilePoints + "</sub></font></html>", SwingConstants.CENTER);
+        this.setLayout(new BorderLayout(2, 2));
+        this.setPreferredSize(new Dimension(30, 30));
+        this.add(this.label);
     }
 
     public void setColor(Color c){
-        this._c = c;
+        _c = c;
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.setColor(_c);
-        g.fillRect(2,2,getWidth(),getHeight());
+        g.setColor(this._c);
+        g.fillRect(2,2, this.getWidth(), this.getHeight());
         g.setFont(new Font("", Font.BOLD,13));
     }
 

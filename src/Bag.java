@@ -7,8 +7,9 @@ public class Bag {
     private ArrayList<Character> arrayOfLetters, tray;
 
     public Bag() {
-        arrayOfLetters = new ArrayList<>();
-        this.arrayOfLetters.addAll(List.of('A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A',
+        super();
+        this.arrayOfLetters = new ArrayList<>();
+        arrayOfLetters.addAll(List.of('A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A',
                 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E',
                 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I',
                 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O',
@@ -29,26 +30,26 @@ public class Bag {
                 'V', 'V',
                 'W', 'W',
                 'Y', 'Y',
-                'K', 'J', 'X', 'Q', 'Z', ' ', ' ' ));
-        Collections.shuffle(arrayOfLetters);
+                'K', 'J', 'X', 'Q', 'Z', ' ', ' '));
+        Collections.shuffle(this.arrayOfLetters);
     }
 
     public ArrayList getTray(){
-        tray = new ArrayList<>();
+        this.tray = new ArrayList<>();
 
         for(int i = 0; i < 7; i++){
-            if(arrayOfLetters.isEmpty()){
+            if(this.arrayOfLetters.isEmpty()){
                 return null;
             }else{
-                tray.add(Character.toLowerCase(arrayOfLetters.remove(arrayOfLetters.size() - 1)));
+                this.tray.add(Character.toLowerCase(this.arrayOfLetters.remove(this.arrayOfLetters.size() - 1)));
             }
         }
-        return tray;
+        return this.tray;
     }
     public int getSize(){
-        return arrayOfLetters.size();
+        return this.arrayOfLetters.size();
     }
     public Character getNewAlphabet(){
-        return Character.toLowerCase(arrayOfLetters.remove(arrayOfLetters.size()-1));
+        return Character.toLowerCase(this.arrayOfLetters.remove(this.arrayOfLetters.size()-1));
     }
 }

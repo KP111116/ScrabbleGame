@@ -19,26 +19,26 @@ public class ScrabbleEvent extends EventObject {
     }
 
     public Tray getTrayPlayer1() {
-        return trayPlayer1;
+        return this.trayPlayer1;
     }
 
     public Tray getTrayPlayer2() {
-        return trayPlayer2;
+        return this.trayPlayer2;
     }
 
     public Character[][] getMatrix() {
-        return matrix;
+        return this.matrix;
     }
 
     public int getPlayer1Score() {
-        return player1Score;
+        return this.player1Score;
     }
 
     public int getPlayer2Score() {
-        return player2Score;
+        return this.player2Score;
     }
 
     public boolean isPlayer1() {
-        return isPlayer1;
+        return this.isPlayer1;
     }
 }
