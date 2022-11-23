@@ -332,7 +332,7 @@ public class AIPlayer extends BoardModel {
         for (String word : words) {
             int score = 0;
             for (int i = 0; i < word.length(); i++) {
-                score += this.tileScoreManager.getTilePoints(word.charAt(i) + "");
+                score += this.tileScoreManager.getTilePoints(word.charAt(i));
             }
             if (score > highestScore) {
                 highestScore = score;
