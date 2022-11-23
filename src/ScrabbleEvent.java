@@ -7,8 +7,8 @@ public class ScrabbleEvent extends EventObject {
     private final int player1Score;
     private final int player2Score;
     private final boolean isPlayer1;
-
-    public ScrabbleEvent(BoardModel m, Tray trayPlayer1, Tray trayPlayer2, Character[][] matrix, int player1Score, int player2Score, boolean isPlayer1) {
+    private final String bus;
+    public ScrabbleEvent(BoardModel m, Tray trayPlayer1, Tray trayPlayer2, Character[][] matrix, int player1Score, int player2Score, boolean isPlayer1, String bus) {
         super(m);
         this.trayPlayer1 = trayPlayer1;
         this.trayPlayer2 = trayPlayer2;
@@ -16,6 +16,11 @@ public class ScrabbleEvent extends EventObject {
         this.player1Score = player1Score;
         this.player2Score = player2Score;
         this.isPlayer1 = isPlayer1;
+        this.bus = bus;
+    }
+
+    public String getBus() {
+        return bus;
     }
 
     public Tray getTrayPlayer1() {

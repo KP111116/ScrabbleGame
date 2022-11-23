@@ -5,6 +5,8 @@ import java.util.Stack;
 
 public class BoardModel {
     public Character[][] matrix;
+    public int turn = 0;
+    private String bus = "";
     private ArrayList<ScrabbleView> views;
     private Bag tileBag;
     private boolean isPlayer1;
@@ -23,6 +25,10 @@ public class BoardModel {
         views = new ArrayList<>();
         setTraysForPlayers();
     }
+    public void addViews(ScrabbleView view){
+        this.views.add(view);
+        view.update(new ScrabbleEvent(this,trayPlayer1,trayPlayer2,matrix,player1Score,player2Score,isPlayer1, bus));
+    }
     public void setMatrix() {
         matrix = new Character[15][15];
         for (int i = 0; i < 15; i++) {
@@ -36,14 +42,9 @@ public class BoardModel {
         return this.placedWords;
     }
     private void setTraysForPlayers(){
-        //trayPlayer1 = new Tray(tileBag.getTray(), tileBag);
-        //trayPlayer2 = new Tray(tileBag.getTray(), tileBag);
-        ArrayList<Character> tray = new ArrayList<>();
-        tray.addAll(List.of('m','y','g', 'o', 'n','d', 'l', 'o'));
-        trayPlayer1 = new Tray( tray, tileBag);
-        trayPlayer2 = new Tray(tray, tileBag);
+        trayPlayer1 = new Tray(tileBag.getTray(), tileBag);
+        trayPlayer2 = new Tray(tileBag.getTray(), tileBag);
         System.out.println("Tray 1 size: " + trayPlayer1.getSize() + " " + trayPlayer1);
-
         System.out.println("Tray 2 size: " + trayPlayer2.getSize() + " " + trayPlayer2);
         System.out.println("tileBag size:" + tileBag.getSize());
     }
@@ -63,14 +64,15 @@ public class BoardModel {
                 isPlayer1 = true;
             }
             trayStackForSelectedWord.clear();
+            bus = "success";
             System.out.println("Player 1 score = " + player1Score);
             System.out.println("Player 2 score = " + player2Score);
         } else {
             addCharactersBackToTray();
-            System.out.println("Coordinates error, try again");
+            bus = "error";
         }
         for(ScrabbleView v: views){
-            v.update(new ScrabbleEvent(this,trayPlayer1,trayPlayer2,matrix,player1Score,player2Score,isPlayer1));
+            v.update(new ScrabbleEvent(this,trayPlayer1,trayPlayer2,matrix,player1Score,player2Score,isPlayer1, bus));
         }
     }
     //tray check
@@ -113,8 +115,8 @@ public class BoardModel {
         while(!wordsCreated.isEmpty()){
             String word = wordsCreated.pop().getWord();
             for(Character c: word.toCharArray()){
-                score += tileScoreManager.getTilePoints(c+"");
-                System.out.println(c + " : " + tileScoreManager.getTilePoints(c+""));
+                score += tileScoreManager.getTilePoints(c);
+                System.out.println(c + " : " + tileScoreManager.getTilePoints(c));
             }
             System.out.println("Score for this turn : " +score );
         }
@@ -168,7 +170,7 @@ public class BoardModel {
         }
     }
 
-    private String getWordFromPoint(Point startPoint, Point endPoint) {
+    public String getWordFromPoint(Point startPoint, Point endPoint) {
         String word = "";
         if (startPoint.getY() - endPoint.getY() == 0) {
             for (int i = (int) startPoint.getX(); i <= (int) endPoint.getX(); i++) {
@@ -273,13 +275,7 @@ public class BoardModel {
 
     public static void main(String[] args) {
         BoardModel b = new BoardModel();
-        b.playWord("god", new Point(1, 2), new Point(1, 4));
+        b.playWord("god", new Point(1, 2), new Point(2, 4));
         System.out.println("--------------------------------------");
-        b.playWord("nly", new Point(2, 3), new Point(4, 3));
-        System.out.println("--------------------------------------");
-        b.playWord("m", new Point(4, 2), new Point(4, 2));
-        System.out.println("--------------------------------------");
-        b.playWord("o", new Point(2, 2), new Point(2, 2));
-
     }
 }
