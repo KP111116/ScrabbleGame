@@ -1,11 +1,8 @@
 import java.awt.*;
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.TimeoutException;
 
 public class AIPlayer extends BoardModel {
     Character[][] matrix;
@@ -13,18 +10,18 @@ public class AIPlayer extends BoardModel {
     BoardModel bm;
     Map<Character, Integer> letterCount;
     HashMap<Point, HashMap<String, Boolean>> generatedGuesses;
-
     ScrabbleDictionary dictionary = new ScrabbleDictionary();
     ArrayList<PlacedWords> pAsHorizontal, pAsVertical; //prefixes and suffixes
     Tray tray;
 
     public AIPlayer(BoardModel bm,Character[][] matrix, Tray tray) {
+        super();
         this.matrix = matrix;
         this.tray = tray;
         this.bm = bm;
-        letterCount = countLetters(tray.getTray());
-        this.generatedGuesses = new HashMap<>();
-        findPrefixAndSuffix();
+        this.letterCount = this.countLetters(tray.getTray());
+        generatedGuesses = new HashMap<>();
+        this.findPrefixAndSuffix();
     }
 
     private HashMap<Character, Integer> countLetters(ArrayList<Character> tray) {
@@ -37,42 +34,38 @@ public class AIPlayer extends BoardModel {
     }
 
     public void guessHorizontal() {
-        for(PlacedWords word: pAsHorizontal){
-            Point leftLimit = checkLeft(word.getStart());
-            Point rightLimit = checkRight(word.getEnd());
+        for(PlacedWords word: this.pAsHorizontal){
+            Point leftLimit = this.checkLeft(word.getStart());
+            Point rightLimit = this.checkRight(word.getEnd());
             int leftLength = word.getStartX() - (int)leftLimit.getX();
             int rightLength = (int)rightLimit.getX() - word.getEndX();
-            generatePlayableMoves(word, leftLength, rightLength, true);
-            System.out.println(this.generatedGuesses);
+            this.generatePlayableMoves(word, leftLength, rightLength, true);
         }
     }
     public void guessVertical(){
-        for(PlacedWords word: pAsVertical){
-            Point topLimit = checkUp(word.getStart());
-            Point downLimit = checkDown(word.getEnd());
+        for(PlacedWords word: this.pAsVertical){
+            Point topLimit = this.checkUp(word.getStart());
+            Point downLimit = this.checkDown(word.getEnd());
             int topLength = word.getStartY() - (int) topLimit.getY();
             int downLength = (int)downLimit.getY() - word.getEndY();
-            System.out.println(topLength + " ---  " + downLength);
-            System.out.println(word.getWord() + " from " + word.getStart() + " to " + word.getEnd());
-            generatePlayableMoves(word, topLength, downLength,false);
-            System.out.println(generatedGuesses);
+            this.generatePlayableMoves(word, topLength, downLength,false);
         }
     }
 
     private void generatePlayableMoves(PlacedWords word, int lengthBeforeWord, int lengthAfterWord, boolean isHorizontal) {
-        ArrayList<String> wordsWithoutCurrentSuffix= removeSuffixFromDictionaryWords(word.getWord(), lengthBeforeWord);
-        ArrayList<String> wordsWithoutCurrentPrefix = removePrefixFromDictionaryWords(word.getWord(), lengthAfterWord);
+        ArrayList<String> wordsWithoutCurrentSuffix= this.removeSuffixFromDictionaryWords(word.getWord(), lengthBeforeWord);
+        ArrayList<String> wordsWithoutCurrentPrefix = this.removePrefixFromDictionaryWords(word.getWord(), lengthAfterWord);
         if(!wordsWithoutCurrentSuffix.isEmpty()){
-            this.generatedGuesses.put(word.getStart(),generateGuesses(wordsWithoutCurrentSuffix,isHorizontal));
+            generatedGuesses.put(word.getStart(), this.generateGuesses(wordsWithoutCurrentSuffix,isHorizontal));
         }
         if(!wordsWithoutCurrentPrefix.isEmpty()) {
-            this.generatedGuesses.put(word.getEnd(), generateGuesses(wordsWithoutCurrentPrefix,isHorizontal));
+            generatedGuesses.put(word.getEnd(), this.generateGuesses(wordsWithoutCurrentPrefix,isHorizontal));
         }
     }
 
     private ArrayList<String> removeSuffixFromDictionaryWords(String suffix, int length){
         ArrayList<String> words = new ArrayList<>();
-        for(String d: dictionary.getDictionary()){
+        for(String d: this.dictionary.getDictionary()){
             if(d.endsWith(suffix)){
                 if(d.length() > suffix.length()+1){
                     String word = d.substring(0,d.length() - suffix.length());
@@ -86,7 +79,7 @@ public class AIPlayer extends BoardModel {
     }
     private ArrayList<String> removePrefixFromDictionaryWords(String prefix, int length){
         ArrayList<String> words = new ArrayList<>();
-        for(String d: dictionary.getDictionary()){
+        for(String d: this.dictionary.getDictionary()){
             if(d.startsWith(prefix)){
                 if(d.length() > prefix.length()){
                     String word = d.substring(prefix.length());
@@ -101,17 +94,17 @@ public class AIPlayer extends BoardModel {
     private Point checkUp(Point p) {
         if (p.getY() == 0) {
             return p;
-        }else if(matrix[(int) p.getY()-1][(int) p.getX()] == ' '){
+        }else if(this.matrix[(int) p.getY()-1][(int) p.getX()] == ' '){
             return new Point((int)p.getX(),(int) p.getY()-1);
         } else {
-            return checkUp(new Point((int) p.getX(), (int) p.getY()));
+            return this.checkUp(new Point((int) p.getX(), (int) p.getY()));
         }
     }
     private Point checkDown(Point p) {
         if (p.getY() == 14) {
             return p;
-        }else if(matrix[(int) p.getY()+1][(int) p.getX()] == ' '){
-            return checkDown(new Point((int) p.getX(), (int) p.getY() + 1));
+        }else if(this.matrix[(int) p.getY()+1][(int) p.getX()] == ' '){
+            return this.checkDown(new Point((int) p.getX(), (int) p.getY() + 1));
         } else {
             return new Point((int)p.getX() ,(int) p.getY());
         }
@@ -119,8 +112,8 @@ public class AIPlayer extends BoardModel {
     private Point checkLeft(Point p) {
         if (p.getX() == 0) {
             return p;
-        }else if(matrix[(int) p.getY()][(int) p.getX()-1] == ' '){
-            return checkLeft(new Point((int) p.getX() - 1, (int) p.getY()));
+        }else if(this.matrix[(int) p.getY()][(int) p.getX()-1] == ' '){
+            return this.checkLeft(new Point((int) p.getX() - 1, (int) p.getY()));
         } else {
             return new Point((int)p.getX(),(int) p.getY());
         }
@@ -128,8 +121,8 @@ public class AIPlayer extends BoardModel {
     private Point checkRight(Point p) {
         if (p.getX() == 14) {
             return p;
-        }else if(matrix[(int) p.getY()][(int) p.getX()+1] == ' '){
-            return checkRight(new Point((int) p.getX() + 1, (int) p.getY()));
+        }else if(this.matrix[(int) p.getY()][(int) p.getX()+1] == ' '){
+            return this.checkRight(new Point((int) p.getX() + 1, (int) p.getY()));
         } else {
             return new Point((int)p.getX(),(int) p.getY());
         }
@@ -148,10 +141,10 @@ public class AIPlayer extends BoardModel {
     public HashMap<String,Boolean> generateGuesses(ArrayList<String> wordsToCheck, boolean isHorizontal) {
         HashMap<String,Boolean> guessedWords = new HashMap<>();
         for (String word : wordsToCheck) {
-            Map<Character, Integer> currentWordMap = countLetters(word);
+            Map<Character, Integer> currentWordMap = this.countLetters(word);
             boolean flag = true;
             for (Character s : currentWordMap.keySet()) {
-                int characterCount = letterCount.containsKey(s) ? letterCount.get(s) : 0;
+                int characterCount = this.letterCount.containsKey(s) ? this.letterCount.get(s) : 0;
                 int mapCharacterCount = currentWordMap.get(s);
                 if (characterCount < mapCharacterCount) {
                     flag = false;
@@ -172,7 +165,7 @@ public class AIPlayer extends BoardModel {
         String horizontalWord = "", verticalWord = "";
         for(int i = 0; i < 15; i++){
             for(int j = 0; j < 15; j++){
-                Character c = matrix[i][j];
+                Character c = this.matrix[i][j];
                 switch (c){
                     case ' ':
                         if (horizontalWord != "") {
@@ -185,7 +178,7 @@ public class AIPlayer extends BoardModel {
                     default:
                         if(j==14){
                             if(startPointH == null){
-                                startPointH = new Point(j,i);
+                                startPointH = new Point(14,i);
                             }
                             horizontalWords.add(new PlacedWords(c.toString(), startPointH, new Point(j,i)));
                             horizontalWord = "";
@@ -206,19 +199,19 @@ public class AIPlayer extends BoardModel {
         verticalWord = "";
         for(int i = 0; i < 15; i++){
             for(int j = 0; j < 15; j++){
-                if(matrix[j][i]!=' '){
+                if(this.matrix[j][i]!=' '){
                     if(startPointV == null){
                         startPointV= new Point(i, j);
                     }
-                    verticalWord+=matrix[j][i];
+                    verticalWord+= this.matrix[j][i];
                 }
                 if(j==14&& startPointV !=null){
-                    endPointV = new Point(i,j);
+                    endPointV = new Point(i, 14);
                     verticalWords.add(new PlacedWords(verticalWord, startPointV,endPointV));
                     startPointV = null;
                     endPointV = null;
                     verticalWord = "";
-                }else if(matrix[j][i] == ' ' && startPointV != null) {
+                }else if(this.matrix[j][i] == ' ' && startPointV != null) {
                     endPointV = new Point(i,j-1);
                     verticalWords.add(new PlacedWords(verticalWord,startPointV,endPointV));
                     startPointV = null;
@@ -227,8 +220,8 @@ public class AIPlayer extends BoardModel {
                 }
             }
         }
-        pAsHorizontal = horizontalWords;
-        pAsVertical = verticalWords;
+        this.pAsHorizontal = horizontalWords;
+        this.pAsVertical = verticalWords;
     }
     public void printMatrix() {
         for (int i = 0; i < 15; i++) {
@@ -245,13 +238,110 @@ public class AIPlayer extends BoardModel {
                 if (j == 0) {
                     System.out.print(i + "\t");
                 }
-                System.out.print("\t" + this.matrix[i][j] + "");
+                System.out.print("\t" + matrix[i][j] + "");
                 if (j + 1 == 15) {
                     System.out.print("\n");
                 }
             }
         }
     }
+
+    /**
+     * When the following method is invoked, it will return the word and position that yields the highest score
+     * based on the possible placeable tiles in generatedGuesses.
+     */
+    public String findBestGuess(){
+        int highestScore = 0;
+        String bestWord = "";
+        boolean isHorizontal = false;
+
+        ArrayList<String> words = new ArrayList<>();
+
+
+        // Check if the coordinate in the hashmap has a member and if so, build the word.
+        for(Point p : this.generatedGuesses.keySet()){
+            this.generatedGuesses.get(p).forEach((word, isHorizontal1) -> {
+                // Check if the array
+                boolean isEnded = false;
+                int startingIndex = 0;
+
+                // Using the letter in "word" and the coordinate in "p", build the word.
+                String builtWord = "";
+
+                // Check if the word is horizontal or vertical and then check surrounding.
+                if (isHorizontal1) {
+                    if (this.matrix[(int) p.getY()][(int) p.getX() + 1] != ' ') {
+                        while (!isEnded) {
+                            if ((int) p.getX() + startingIndex <= 14 && this.matrix[(int) p.getY()][(int) p.getX() + startingIndex] != ' ') {
+                                builtWord += this.matrix[(int) p.getY()][(int) p.getX() - startingIndex];
+                                startingIndex++;
+                            } else {
+                                isEnded = true;
+                            }
+                        }
+                    } else if (this.matrix[(int) p.getY()][(int) p.getX() - 1] != ' ') {
+                        while (!isEnded) {
+                            if ((int) p.getX() - startingIndex >= 0 && this.matrix[(int) p.getY()][(int) p.getX() - startingIndex] != ' ') {
+                                builtWord += this.matrix[(int) p.getY()][(int) p.getX() - startingIndex];
+                                startingIndex++;
+                            } else {
+                                // Reverse the string
+                                builtWord = new StringBuilder(builtWord).reverse().toString();
+
+                                // Add the inital word
+                                builtWord += word;
+
+                                isEnded = true;
+                            }
+                        }
+                    } else {
+                        builtWord = word;
+                    }
+                } else {
+                    if (this.matrix[(int) p.getY() + 1][(int) p.getX()] != ' ') {
+                        while (!isEnded) {
+                            if ((int) p.getY() + startingIndex <= 14 && this.matrix[(int) p.getY() + startingIndex][(int) p.getX()] != ' ') {
+                                builtWord += this.matrix[(int) p.getY() + startingIndex][(int) p.getX()];
+                                startingIndex++;
+                            } else {
+                                isEnded = true;
+                            }
+                        }
+                    } else if (this.matrix[(int) p.getY() - 1][(int) p.getX()] != ' ') {
+                        while (!isEnded) {
+                            if ((int) p.getY() - startingIndex >= 0 && this.matrix[(int) p.getY() - startingIndex][(int) p.getX()] != ' ') {
+                                builtWord += this.matrix[(int) p.getY() - startingIndex][(int) p.getX()];
+                                startingIndex++;
+                            } else {
+                                // Reverse the string
+                                builtWord = new StringBuilder(builtWord).reverse().toString();
+
+                                // Add the inital word
+                                builtWord += word;
+
+                                isEnded = true;
+                            }
+                        }
+                    } else {
+                        builtWord = word;
+                    }
+                }
+                words.add(builtWord);
+            });
+        }
+        for (String word : words) {
+            int score = 0;
+            for (int i = 0; i < word.length(); i++) {
+                score += this.tileScoreManager.getTilePoints(word.charAt(i));
+            }
+            if (score > highestScore) {
+                highestScore = score;
+                bestWord = word;
+            }
+        }
+        return bestWord;
+    }
+
     public static void main(String[] args) {
         Bag b = new Bag();
         Character[][] matrix = new Character[15][15];
@@ -266,13 +356,15 @@ public class AIPlayer extends BoardModel {
         matrix[2][4]='f';
         matrix[3][0] = 'c';
         matrix[3][1] = 'f';
+        matrix[2][13] = 'o';
+        matrix[2][14] = 'd';
         ArrayList<Character> tray = new ArrayList<>();
         tray.addAll(List.of('d','t','v','z','f','a'));
         AIPlayer p = new AIPlayer(new BoardModel(), matrix, new Tray(tray, b));
         p.printMatrix();
         p.guessHorizontal();
         p.guessVertical();
-
+        System.out.println("The best letter / word the AI can play is: " + p.findBestGuess());
     }
 
 }
