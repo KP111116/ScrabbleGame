@@ -250,12 +250,18 @@ public class AIPlayer extends BoardModel {
      * When the following method is invoked, it will return the word and position that yields the highest score
      * based on the possible placeable tiles in generatedGuesses.
      */
-    public String findBestGuess(){
+    public String[] findBestGuess(){
         int highestScore = 0;
         String bestWord = "";
+        String bestLetter = "";
+        int bestX = 0;
+        int bestY = 0;
         boolean isHorizontal = false;
 
         ArrayList<String> words = new ArrayList<>();
+        ArrayList<String> letters = new ArrayList<>();
+        ArrayList<Integer> xPos = new ArrayList<>();
+        ArrayList<Integer> yPos = new ArrayList<>();
 
 
         // Check if the coordinate in the hashmap has a member and if so, build the word.
@@ -326,7 +332,10 @@ public class AIPlayer extends BoardModel {
                         builtWord = word;
                     }
                 }
+                letters.add(word);
                 words.add(builtWord);
+                xPos.add((int) p.getX());
+                yPos.add((int) p.getY());
             });
         }
         for (String word : words) {
@@ -337,9 +346,17 @@ public class AIPlayer extends BoardModel {
             if (score > highestScore) {
                 highestScore = score;
                 bestWord = word;
+                bestLetter = letters.get(words.indexOf(word));
+                bestX = xPos.get(words.indexOf(word));
+                bestY = yPos.get(words.indexOf(word));
+
             }
         }
-        return bestWord;
+        return new String[]{bestWord, bestLetter, String.valueOf(bestX), String.valueOf(bestY)};
+    }
+
+    public void placeGuess(char letter, int x, int y){
+        this.matrix[x][y] = letter;
     }
 
     public static void main(String[] args) {
@@ -364,7 +381,15 @@ public class AIPlayer extends BoardModel {
         p.printMatrix();
         p.guessHorizontal();
         p.guessVertical();
-        System.out.println("The best letter / word the AI can play is: " + p.findBestGuess());
+
+        for (int i = 0; i < p.findBestGuess().length; i++) {
+            System.out.println(p.findBestGuess()[i]);
+        }
+
+        p.placeGuess(p.findBestGuess()[1].charAt(0), Integer.parseInt(p.findBestGuess()[2]), Integer.parseInt(p.findBestGuess()[3]));
+
+        p.printMatrix();
+
     }
 
 }

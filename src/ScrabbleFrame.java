@@ -14,6 +14,8 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView{
     public ArrayList<ScrabbleTile> tray1, tray2;
     private Character[][] matrix;
     public boolean isPlayer1;
+    public AdvancedAI ai = new AdvancedAI();
+
     public ScrabbleFrame(String title){
         super(title);
         model.addViews(this);
@@ -78,20 +80,12 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView{
 
         clearPlayer1 = new JButton("Clear");
         clearPlayer1.setActionCommand("clear");
-        clearPlayer2 = new JButton("Clear");
-        clearPlayer2.setActionCommand("clear");
         submitPlayer1 = new JButton("Submit");
         submitPlayer1.setActionCommand("submit");
-        submitPlayer2 = new JButton("Submit");
-        submitPlayer2.setActionCommand("submit");
         player1Panel.add(submitPlayer1);
-        player2Panel.add(submitPlayer2);
         player1Panel.add(clearPlayer1);
-        player2Panel.add(clearPlayer2);
         submitPlayer1.addActionListener(controller);
-        submitPlayer2.addActionListener(controller);
         clearPlayer1.addActionListener(controller);
-        clearPlayer2.addActionListener(controller);
 
         JLabel label = new JLabel("S C R A B B L E");
         label.setFont(new Font("Copperplate Gothic Bold", Font.ROMAN_BASELINE, 50));
@@ -177,6 +171,15 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView{
     public void update(ScrabbleEvent e) {
         System.out.println("now in update");
         System.out.println(e.getBus());
+        // Check if player two is next to play, if so create the ai to play
+        if (!e.isPlayer1()){
+            System.out.println("New AI");
+            this.ai.boardHandoff(this.matrix, this.trayPlayer2, new ScrabbleDictionary());
+            this.ai.makeMove();
+        }
+
+
+
         if(e.getBus().equals("error")){
             JOptionPane.showMessageDialog(this, "Put the letter in order, left to right or top to bottom", "Invalid Entry", JOptionPane.ERROR_MESSAGE);
             model = new BoardModel();
