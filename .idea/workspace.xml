@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ea2ae6fe-e34d-4e45-98b5-9e090f9a475d" name="Changes" comment="the ai checks horizontally and vertically&#10;vertical now passes the test">
-      <change afterPath="$PROJECT_DIR$/src/ButtonController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ScrabbleButton.java" afterDir="false" />
+    <list default="true" id="ea2ae6fe-e34d-4e45-98b5-9e090f9a475d" name="Changes" comment="The GUI needs work, word check does not work for&#10;the controller but it is a work in progress">
+      <change afterPath="$PROJECT_DIR$/src/Move.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/TileMove.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/AIPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AIPlayer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Bag.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Bag.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PlacedWords.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PlacedWords.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ScrabbleDictionary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ScrabbleDictionary.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ScrabbleEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ScrabbleEvent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/BoardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BoardController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/BoardModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BoardModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PlacedWords.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/WordToPlace.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Tray.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tray.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -32,8 +33,17 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/src/BoardModel.java" root0="SKIP_INSPECTION" />
+  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProblemsViewState">
+    <hideBySeverity>
+      <option value="200" />
+      <option value="300" />
+    </hideBySeverity>
   </component>
   <component name="ProjectId" id="2HYZcwg3eO0NCczRWZpVgG1HsYt" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -41,17 +51,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;extract.method.default.visibility&quot;: &quot;private&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/patel/IdeaProjects/ScrabbleGame/resources&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "extract.method.default.visibility": "private",
+    "last_opened_file_path": "C:/Users/patel/IdeaProjects/ScrabbleGame/resources",
+    "project.structure.last.edited": "Artifacts",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "settings.editor.selected.configurable": "preferences.pluginManager"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="" />
@@ -75,6 +89,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Move" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Move" />
+      <module name="ScrabbleGame" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="ScrabbleButton" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="ScrabbleButton" />
       <module name="ScrabbleGame" />
@@ -92,9 +113,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.BoardModel" />
+        <item itemvalue="Application.AIPlayer" />
+        <item itemvalue="Application.Move" />
         <item itemvalue="Application.ScrabbleFrame" />
         <item itemvalue="Application.ScrabbleButton" />
-        <item itemvalue="Application.AIPlayer" />
       </list>
     </recent_temporary>
   </component>
@@ -110,7 +132,7 @@
       <workItem from="1669048873929" duration="3446000" />
       <workItem from="1669054218146" duration="2437000" />
       <workItem from="1669093988922" duration="60938000" />
-      <workItem from="1669178401257" duration="118000" />
+      <workItem from="1670421299572" duration="26673000" />
     </task>
     <task id="LOCAL-00001" summary="the ai checks horizontally and vertically">
       <created>1669159511795</created>
@@ -179,5 +201,26 @@
     <MESSAGE value="the ai checks horizontally and vertically" />
     <MESSAGE value="the ai checks horizontally and vertically&#10;vertical now passes the test" />
     <option name="LAST_COMMIT_MESSAGE" value="the ai checks horizontally and vertically&#10;vertical now passes the test" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/src/BoardModel.java</url>
+          <line>245</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/src/BoardModel.java</url>
+          <line>181</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/AIPlayer.java</url>
+          <line>43</line>
+          <option name="timeStamp" value="13" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

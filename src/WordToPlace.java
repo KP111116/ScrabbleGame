@@ -1,12 +1,11 @@
 import java.awt.*;
 
-public class PlacedWords {
+public class WordToPlace {
     private String word;
     private Point start;
     private Point end;
 
-    public PlacedWords(String word, Point start, Point end) {
-        super();
+    public WordToPlace(String word, Point start, Point end) {
         this.word = word;
         this.start = start;
         this.end = end;
@@ -39,7 +38,6 @@ public class PlacedWords {
         if(this.start.getY() - this.end.getY()== 0){
             return true;
         }
-
         System.out.println("Check fail -> horizontal");
         return false;
     }
@@ -49,5 +47,14 @@ public class PlacedWords {
         }
         System.out.println("Check fail -> vertical");
         return false;
+    }
+
+    @Override
+    public String toString() {
+        return "WordToPlace{" +
+                "word='" + word + '\'' +
+                ", start=" + start +
+                ", end=" + end +
+                '}';
     }
 }

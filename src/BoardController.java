@@ -66,7 +66,7 @@ public class BoardController implements ActionListener {
                 JOptionPane.showMessageDialog(scrabbleFrame, "The tiles must be connected by the edges consecutively", "Illegal Move", JOptionPane.ERROR_MESSAGE);
                 clear();
             } else {
-                model.playWord(word, stackOfBoardTilesOccupied.get(0).getP(), stackOfBoardTilesOccupied.get(stackOfBoardTilesOccupied.size() - 1).getP());
+                //TODO: model.playWord(word, stackOfBoardTilesOccupied.get(0).getP(), stackOfBoardTilesOccupied.get(stackOfBoardTilesOccupied.size() - 1).getP());
             }
 
 

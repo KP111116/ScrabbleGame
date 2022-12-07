@@ -46,6 +46,11 @@ public class Bag {
         }
         return this.tray;
     }
+    public ArrayList testTray(){
+        this.tray = new ArrayList<>();
+        tray.addAll(List.of('g','o','d','o','g','l','e'));
+        return tray;
+    }
     public int getSize(){
         return this.arrayOfLetters.size();
     }

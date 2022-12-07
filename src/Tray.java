@@ -22,6 +22,11 @@ public class Tray {
     public int getSize(){
         return this.tray.size();
     }
+
+    //checks if the created word is in the tray
+    public boolean checkString(char s){
+        return tray.contains(s);
+    }
     public boolean contains(Character _alphabet){
         return this.tray.contains(_alphabet);
     }
