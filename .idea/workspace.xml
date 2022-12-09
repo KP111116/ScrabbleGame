@@ -1,26 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ea2ae6fe-e34d-4e45-98b5-9e090f9a475d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Test.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AIPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AIPlayer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Bag.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Bag.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/BoardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BoardController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/BoardModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BoardModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/BoardTile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BoardTile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ButtonController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Move.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Move.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ScrabbleButton.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ScrabbleDictionary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ScrabbleDictionary.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ScrabbleEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ScrabbleEvent.java" afterDir="false" />
+    <list default="true" id="ea2ae6fe-e34d-4e45-98b5-9e090f9a475d" name="Changes" comment="Added load and save functions built in">
       <change beforePath="$PROJECT_DIR$/src/ScrabbleFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ScrabbleFrame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ScrabbleTile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ScrabbleTile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ScrabbleView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ScrabbleView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/TileMove.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TileMove.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/TileScoreManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TileScoreManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Tray.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tray.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/WordToPlace.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/WordToPlace.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -179,7 +161,14 @@
       <option name="project" value="LOCAL" />
       <updated>1670547327386</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Added load and save functions built in">
+      <created>1670594626859</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1670594626859</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -239,7 +228,8 @@
     <MESSAGE value="the ai checks horizontally and vertically&#10;vertical now passes the test" />
     <MESSAGE value="The AI is hooked to the MODEL, finally" />
     <MESSAGE value="worked on GUI to make it behave with the new model" />
-    <option name="LAST_COMMIT_MESSAGE" value="worked on GUI to make it behave with the new model" />
+    <MESSAGE value="Added load and save functions built in" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added load and save functions built in" />
   </component>
   <component name="XDebuggerManager">
     <pin-to-top-manager>
