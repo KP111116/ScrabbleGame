@@ -57,6 +57,7 @@ public class AIPlayer extends BoardModel implements Serializable {
         bm.placement(bestMove);
         bm.status(bestMove);
         bm.setAIScore(bestMove);
+        bm.addPlayedMove(bestMove);
     }
 
     public void guessHorizontal() {

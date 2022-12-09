@@ -1,18 +1,16 @@
 import java.io.Serializable;
 import java.util.EventObject;
 
-public class ScrabbleEvent extends EventObject implements Serializable {
+public class ScrabbleEvent implements Serializable {
     private final Tray trayPlayer1;
+    private BoardModel m ;
     private final Tray trayPlayer2;
     private final Character[][] matrix;
     private final int player1Score;
     private final int player2Score;
     private final boolean isPlayer1;
-
-
     private final boolean isAIplaying;
-    public ScrabbleEvent(BoardModel m, Tray trayPlayer1, Tray trayPlayer2, Character[][] matrix, int player1Score, int player2Score, boolean isPlayer1, boolean isAIplaying) {
-        super(m);
+    public ScrabbleEvent(BoardModel model, Tray trayPlayer1, Tray trayPlayer2, Character[][] matrix, int player1Score, int player2Score, boolean isPlayer1, boolean isAIplaying) {
         this.isAIplaying = isAIplaying;
         this.trayPlayer1 = trayPlayer1;
         this.trayPlayer2 = trayPlayer2;
@@ -20,6 +18,7 @@ public class ScrabbleEvent extends EventObject implements Serializable {
         this.player1Score = player1Score;
         this.player2Score = player2Score;
         this.isPlayer1 = isPlayer1;
+        this.m = model;
     }
 
     public Tray getTrayPlayer1() {
@@ -48,5 +47,9 @@ public class ScrabbleEvent extends EventObject implements Serializable {
 
     public boolean isAIplaying() {
         return this.isAIplaying;
+    }
+
+    public BoardModel getM() {
+        return this.m;
     }
 }

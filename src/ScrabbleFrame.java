@@ -1,11 +1,17 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.sql.SQLOutput;
 import java.util.ArrayList;
+import java.util.Stack;
 
 public class ScrabbleFrame extends JFrame implements ScrabbleView {
-    public boolean isPlayer1;
+    public boolean isPlayer1, isUndo;
+
+    private Stack<ScrabbleEvent> playedEvents, undoneEvents;
+
     JPanel matrixPanel, player1Panel, player2Panel;
     JButton submitPlayer1, submitPlayer2, clearPlayer1, clearPlayer2, swapPlayer1,swapPlayer2;
     private JLabel player1Label, player2Label, scorePlayer1, scorePlayer2;
@@ -19,10 +25,14 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
     private JMenuBar menuBar;
     private JMenu menu;
     JMenuItem save, load, undo, redo;
+    JCheckBoxMenuItem  playWithAI;
 
     public ScrabbleFrame(String title) {
         super(title);
         model.addViews(this);
+
+        playedEvents = new Stack<>();
+        undoneEvents = new Stack<>();
 
         //set up menu items
         menuBar = new JMenuBar();
@@ -31,13 +41,21 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
         redo = new JMenuItem("Redo");
         save = new JMenuItem("Save");
         load = new JMenuItem("Load");
+        playWithAI = new JCheckBoxMenuItem("Play with AI");
 
         menu.add(undo);
         menu.add(redo);
         menu.add(save);
         menu.add(load);
+        menu.add(playWithAI);
         menuBar.add(menu);
         this.setJMenuBar(menuBar);
+        playWithAI.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                model.setIsAi(playWithAI.isSelected());
+            }
+        });
         save.addActionListener(controller);
         undo.addActionListener(controller);
         redo.addActionListener(controller);
@@ -168,9 +186,6 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
         c.gridheight = 1;
         add(player2Panel, c);
 
-        //needs to be removed later
-        model.setIsAi(true);
-
         setPlayerComponents();
         setSize(new Dimension(975, 630));
         setVisible(true);
@@ -234,7 +249,7 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
     private void updateCells(Character[][] matrix) {
         for (int i = 0; i < 15; i++) {
             for (int j = 0; j < 15; j++) {
-                cells[i][j].setText(matrix[i][j].toString());
+                cells[i][j].setC(matrix[i][j]);
             }
         }
     }
@@ -244,9 +259,10 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
         scorePlayer2.setText("Score :" + this.player2Score);
     }
 
+
     @Override
     public void update(ScrabbleEvent e) {
-        this.model = (BoardModel) e.getSource();
+        this.model = e.getM();
         this.player1Score = e.getPlayer1Score();
         this.player2Score = e.getPlayer2Score();
         this.isPlayer1 = e.isPlayer1();
@@ -255,8 +271,14 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
         isAIplaying = e.isAIplaying();
         System.out.println("now in update " + isPlayer1);
         updateTray();
-        updateCells(model.getMatrix());
+        updateCells(e.getMatrix());
         updateScore();
         setPlayerComponents();
+        if(!isUndo) {
+            playedEvents.push(e);
+        }
+        if(isUndo){
+            model.printMatrix();
+        }
     }
 }
