@@ -1,0 +1,25 @@
+Welcome to our game of Scrabble. We have tried our best to replicate the original games features as closely as possible. Please note
+that we are only two members on our group who have contributed to the project. After Milestone 2, neither of the other two members
+have contributed to the project so we spoke to the professor and they were removed from the group. With that being said, we have
+done our best to complete the project as best as we could with the time we had, any easier marking scheme or aid would be greatly
+appreciated considering it was just the two of us working on a 3-4 person project. Thank you for your time and consideration.
+
+
+Class Structure Breakdown:
+Developer->Utils: This class houses a few methods that we used during development to help us debug and test our code. These methods are not used in the final product.
+AIPlayer: This is the class that houses the AI logic for the game. It is responsible for making the AI's moves and keeping track of the AI's score.
+Bag: This class is responsible for keeping track of the tiles in the bag and drawing tiles from the bag.
+BoardController: This class is the controller for the board. It is responsible for handling the user's input and making the appropriate changes to the board.
+Board: This class is responsible for the board itself. It is responsible for keeping track of the tiles on the board and the words that are on the board.
+BoardTile: This class is responsible for the tiles on the board. It is responsible for keeping track of the letter on the tile and the score of the tile.
+Game: This class is responsible for the game itself. This class is also used for loading a previous game instance.
+Move: This class is responsible for keeping track of the moves that are made in the game.
+ScrabbleDictionary: This class is responsible for keeping track of the dictionary and checking if words are valid.
+ScrabbleEvent: This class is responsible for handling the events that are fired in the game.
+ScrabbleTile: This class is responsible for the tiles in the player's hand. It is responsible for keeping track of the letter on the tile and the score of the tile.
+ScrabbleView: This is a interface that is used to handle the view of the game.
+TestSuite: This class is responsible for running the test suite.
+TileMove: This class is responsible for keeping track of the tiles that are moved in a move.
+TileScoreManager: This class is responsible for keeping track of the scores of the tiles.
+Tray: This class is responsible for keeping track of the tiles in the player's hand.
+WordToPlace: This class is responsible for keeping track of the words that are placed on the board.

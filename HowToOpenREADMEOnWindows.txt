@@ -1,0 +1,2 @@
+I (Merek) and currently running Ubuntu 22.04 as my OS and as such, POSIX allows me to create extensionless files. If you are
+trying to open the readme and cannot, simply rename the file from README to README.txt and it should open.
