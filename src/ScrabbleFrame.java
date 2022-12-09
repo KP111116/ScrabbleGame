@@ -240,7 +240,6 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
     }
 
     private void updateScore() {
-        System.out.println("Updating score");
         scorePlayer1.setText("Score :" + this.player1Score);
         scorePlayer2.setText("Score :" + this.player2Score);
     }
@@ -256,7 +255,7 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
         isAIplaying = e.isAIplaying();
         System.out.println("now in update " + isPlayer1);
         updateTray();
-        updateCells(e.getMatrix());
+        updateCells(model.getMatrix());
         updateScore();
         setPlayerComponents();
     }

@@ -172,7 +172,7 @@ public class BoardModel implements Serializable {
 
     public void updateViews() {
         for (final ScrabbleView view : this.views) {
-            view.update(new ScrabbleEvent(this, this.trayPlayer1, this.trayPlayer2, matrix, BoardModel.player1Score, BoardModel.player2Score, this.isPlayer1, isAI));
+            view.update(new ScrabbleEvent(this, this.trayPlayer1, this.trayPlayer2, matrix, this.player1Score, this.player2Score, this.isPlayer1, isAI));
         }
     }
 
@@ -442,5 +442,21 @@ public class BoardModel implements Serializable {
         if (b.playMove(m)) {
             b.placement(m);
         }
+    }
+
+    public int getPlayer1Score() {
+        return this.player1Score;
+    }
+
+    public int getPlayer2Score() {
+        return this.player2Score;
+    }
+
+    public Character[][] getMatrix() {
+        return this.matrix;
+    }
+
+    public boolean isAIplaying() {
+        return this.isAI;
     }
 }
