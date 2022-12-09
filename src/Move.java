@@ -97,9 +97,6 @@ public class Move implements Serializable {
         return this.isVertical;
     }
 
-    public WordToPlace getWordToPlace() {
-        return this.wordToPlace;
-    }
 
     private boolean checkContinuity(ArrayList<Point> points){
         for(int i = 0; i < points.size()-1; i++){

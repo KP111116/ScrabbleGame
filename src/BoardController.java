@@ -2,8 +2,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Stack;
 
 public class BoardController implements ActionListener, Serializable {
 
@@ -14,6 +16,7 @@ public class BoardController implements ActionListener, Serializable {
     ArrayList<BoardTile> stackOfBoardTilesOccupied = new ArrayList<>();
     ArrayList<ScrabbleTile> stackOfScrabbleTileDropped = new ArrayList<>();
     ArrayList<TileMove> tileMoves = new ArrayList<>();
+
     public BoardController(ScrabbleFrame scrabbleFrame, BoardModel model) {
         this.scrabbleFrame = scrabbleFrame;
         this.model = model;
@@ -34,6 +37,17 @@ public class BoardController implements ActionListener, Serializable {
             return;
         }
         //todo: redo, undo, setting up ai with frame
+        if(e.getSource() == scrabbleFrame.undo){
+            model.undo();
+            return;
+        }
+        if(e.getSource() == scrabbleFrame.redo){
+            scrabbleFrame.exportGame("resources/undoState");
+            this.model = scrabbleFrame.importGame("resources/redoState");
+            model.addViews(scrabbleFrame);
+            model.updateViews();
+            return;
+        }
 
         if(e.getSource() instanceof ScrabbleTile && !isScrabbleTileInHand){
             s = (ScrabbleTile) e.getSource();
@@ -65,6 +79,7 @@ public class BoardController implements ActionListener, Serializable {
             isScrabbleTileInHand = false;
         }
         if(b.getActionCommand().equals("submit")){
+
             Move m = new Move(tileMoves);
             if(model.playMove(m)){
                 model.placement(m);
@@ -90,5 +105,6 @@ public class BoardController implements ActionListener, Serializable {
         }
         stackOfBoardTilesOccupied.clear();
         stackOfScrabbleTileDropped.clear();
+        tileMoves.clear();
     }
 }

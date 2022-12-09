@@ -4,14 +4,16 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Stack;
 
-public class BoardModel implements Serializable {
-    private static int player1Score, player2Score;
+public class BoardModel implements Serializable, Cloneable {
+    private int player1Score, player2Score;
+    private Stack<BoardModel> modelStacks = new Stack<>();
     public Character[][] matrix;
+    private ArrayList<WordToPlace> wordsOnMatrix = new ArrayList<>();
     /*public int[][] premiumMatrix;*/
     public int turn;
     Stack<WordToPlace> wordsCreated = new Stack<>();
     private final ArrayList<ScrabbleView> views;
-    private final Bag tileBag;
+    private Bag tileBag;
 
     public boolean isPlayer1() {
         return this.isPlayer1;
@@ -19,7 +21,7 @@ public class BoardModel implements Serializable {
 
     private boolean isPlayer1, isMatrixClear, canMakeMove, isAI;
     private Tray trayPlayer1, trayPlayer2;
-    private Stack<Move> playedMoves, undoneMoves;
+    private Stack<Move> playedMoves;
     private final ScrabbleDictionary dictionary;
     private final TileScoreManager tileScoreManager = new TileScoreManager();
 
@@ -31,6 +33,21 @@ public class BoardModel implements Serializable {
         this.views = new ArrayList<>();
         this.isMatrixClear = true;
         this.setTraysForPlayers();
+    }
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        BoardModel m = new BoardModel();
+        m.matrix = this.matrix;
+        m.isAI = this.isAI;
+        m.isPlayer1 = this.isPlayer1;
+        m.trayPlayer1 = this.trayPlayer1;
+        m.trayPlayer2 = this.trayPlayer1;
+        m.tileBag = this.tileBag;
+        m.player1Score = this.player1Score;
+        m.player2Score = this.player2Score;
+        m.isMatrixClear = this.isMatrixClear;
+        return m;
     }
 
     public void setIsAi(final boolean setAI) {
@@ -53,6 +70,7 @@ public class BoardModel implements Serializable {
 //    }
 
     public void addViews(final ScrabbleView view) {
+       // views.clear();
         views.add(view);
     }
 
@@ -72,7 +90,6 @@ public class BoardModel implements Serializable {
             }
         }
         this.playedMoves = new Stack<Move>();
-        this.undoneMoves = new Stack<Move>();
     }
 
     private void setTraysForPlayers() {
@@ -118,6 +135,12 @@ public class BoardModel implements Serializable {
         while (iterator.hasNext()) {
             System.out.println("Calculating score: ");
             final WordToPlace w = iterator.next();
+            System.out.println(w);
+            if(wordsOnMatrix.contains(w)){
+                continue;
+            }else{
+                wordsOnMatrix.add(w);
+            }
             final String word = w.getWord();
             score += this.getBoardTilePoints(m);
             for (final Character c : word.toCharArray()) {
@@ -162,12 +185,18 @@ public class BoardModel implements Serializable {
 
     public void status(final Move m) {
         this.printMatrix();
-
         trayPlayer1.refill();
         trayPlayer2.refill();
         System.out.println("Tray 1: " + this.trayPlayer1);
         System.out.println("Tray 2: " + this.trayPlayer2);
         this.updateViews();
+    }
+
+    public void undo(){
+        BoardModel m = this.modelStacks.pop();
+        for(ScrabbleView v: views){
+            v.update(new ScrabbleEvent(m, m.trayPlayer1, m.trayPlayer2,m.getMatrix(),m.player1Score,m.player2Score,m.isPlayer1,m.isAI));
+        }
     }
 
     public void updateViews() {
@@ -213,12 +242,9 @@ public class BoardModel implements Serializable {
         return word;
     }
     public boolean swapCharacter(char c){
-        System.out.println("Swapping character");
         if(isPlayer1){
             if(trayPlayer1.swapAlphabet(c)){
                 updateViews();
-                System.out.println("letter swapped: " + c);
-                System.out.println("player1 tray: " +trayPlayer1.getTray());
                 return true;
             }
         }else{
@@ -235,6 +261,13 @@ public class BoardModel implements Serializable {
         updateViews();
     }
     public void placement(final Move m) {
+        try {
+            modelStacks.push((BoardModel) this.clone());
+            System.out.println("Model Cloned");
+        } catch (CloneNotSupportedException e) {
+            System.out.println("no clone");
+            throw new RuntimeException(e);
+        }
         if (this.isMatrixClear) {
             this.isMatrixClear = false;
         }
@@ -248,7 +281,7 @@ public class BoardModel implements Serializable {
         }
         this.playedMoves.push(m);
         if (this.isPlayer1) {
-            BoardModel.player1Score += this.calculateScore(m);
+            player1Score += this.calculateScore(m);
             this.isPlayer1 = false;
             if (this.isAI) {
                 final AIPlayer ai = new AIPlayer(this, this.matrix, this.trayPlayer2);
@@ -256,16 +289,17 @@ public class BoardModel implements Serializable {
                 this.isPlayer1 = true;
             }
         } else if (!this.isPlayer1 && !this.isAI) {
-            BoardModel.player2Score += this.calculateScore(m);
+            player2Score += this.calculateScore(m);
             this.isPlayer1 = true;
         }
         this.status(m);
     }
+    public void addPlayedMove(Move m){
+        this.playedMoves.push(m);
+    }
     public void setAIScore(Move m){
         player2Score += this.calculateScore(m);
     }
-    //undo
-    //redo
     //save
     public void save(String filename) throws IOException {
         FileOutputStream fileOutputStream = new FileOutputStream(filename+".ser");
@@ -279,7 +313,7 @@ public class BoardModel implements Serializable {
         FileInputStream fileInputStream = new FileInputStream(filename+".ser");
         ObjectInputStream ois = new ObjectInputStream(fileInputStream);
         BoardModel bm = (BoardModel) ois.readObject();
-        this.views.clear();
+      //  this.views.clear();
         System.out.println(bm);
         fileInputStream.close();
         ois.close();
@@ -453,7 +487,13 @@ public class BoardModel implements Serializable {
     }
 
     public Character[][] getMatrix() {
-        return this.matrix;
+        Character[][] m = new Character[15][15];
+        for(int i = 0; i < 15; i++){
+            for(int j = 0; j< 15; j ++){
+                m[i][j] = this.matrix[i][j];
+            }
+        }
+        return m;
     }
 
     public boolean isAIplaying() {
