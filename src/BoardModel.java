@@ -1,9 +1,10 @@
 import java.awt.*;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Stack;
 
-public class BoardModel {
+public class BoardModel implements Serializable {
     private static int player1Score, player2Score;
     public Character[][] matrix;
     /*public int[][] premiumMatrix;*/
@@ -18,7 +19,7 @@ public class BoardModel {
 
     private boolean isPlayer1, isMatrixClear, canMakeMove, isAI;
     private Tray trayPlayer1, trayPlayer2;
-    private Stack<Move> playedMoves;
+    private Stack<Move> playedMoves, undoneMoves;
     private final ScrabbleDictionary dictionary;
     private final TileScoreManager tileScoreManager = new TileScoreManager();
 
@@ -71,6 +72,7 @@ public class BoardModel {
             }
         }
         this.playedMoves = new Stack<Move>();
+        this.undoneMoves = new Stack<Move>();
     }
 
     private void setTraysForPlayers() {
@@ -258,6 +260,30 @@ public class BoardModel {
             this.isPlayer1 = true;
         }
         this.status(m);
+    }
+    public void setAIScore(Move m){
+        player2Score += this.calculateScore(m);
+    }
+    //undo
+    //redo
+    //save
+    public void save(String filename) throws IOException {
+        FileOutputStream fileOutputStream = new FileOutputStream(filename+".ser");
+        ObjectOutputStream oos = new ObjectOutputStream(fileOutputStream);
+        oos.writeObject(this);
+        fileOutputStream.close();
+        oos.close();
+    }
+    //load
+    public BoardModel load(String filename) throws IOException, ClassNotFoundException {
+        FileInputStream fileInputStream = new FileInputStream(filename+".ser");
+        ObjectInputStream ois = new ObjectInputStream(fileInputStream);
+        BoardModel bm = (BoardModel) ois.readObject();
+        this.views.clear();
+        System.out.println(bm);
+        fileInputStream.close();
+        ois.close();
+        return bm;
     }
 
     public boolean playMove(final Move move) {

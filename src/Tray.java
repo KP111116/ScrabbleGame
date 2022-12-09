@@ -1,6 +1,7 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Tray {
+public class Tray implements Serializable {
     private ArrayList<Character> tray;
     private Bag b;
 

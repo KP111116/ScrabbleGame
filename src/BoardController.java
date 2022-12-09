@@ -2,10 +2,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Stack;
 
-public class BoardController implements ActionListener {
+public class BoardController implements ActionListener, Serializable {
 
     private ScrabbleFrame scrabbleFrame;
     private BoardModel model;
@@ -21,6 +21,20 @@ public class BoardController implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        if(e.getSource() == scrabbleFrame.save){
+            String saveToFile =JOptionPane.showInputDialog("Enter the file name for your game: ");
+            scrabbleFrame.exportGame(saveToFile);
+            return;
+        }
+        if(e.getSource() == scrabbleFrame.load){
+            String loadFromFile = JOptionPane.showInputDialog("What is the name of your save game: ");
+            this.model = scrabbleFrame.importGame(loadFromFile);
+            model.addViews(scrabbleFrame);
+            model.updateViews();
+            return;
+        }
+        //todo: redo, undo, setting up ai with frame
+
         if(e.getSource() instanceof ScrabbleTile && !isScrabbleTileInHand){
             s = (ScrabbleTile) e.getSource();
             s.setEnabled(false);

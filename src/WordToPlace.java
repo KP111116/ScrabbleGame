@@ -1,6 +1,7 @@
 import java.awt.*;
+import java.io.Serializable;
 
-public class WordToPlace {
+public class WordToPlace implements Serializable {
     private String word;
     private Point start;
     private Point end;

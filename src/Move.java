@@ -2,10 +2,11 @@ import org.w3c.dom.html.HTMLTitleElement;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class Move {
+public class Move implements Serializable {
     String word;
     ArrayList<Point> points;
     ArrayList<TileMove> tileMoves;

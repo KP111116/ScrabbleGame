@@ -1,9 +1,10 @@
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class Bag {
+public class Bag implements Serializable {
     private ArrayList<Character> arrayOfLetters, tray;
 
     public Bag() {

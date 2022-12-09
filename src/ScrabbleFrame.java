@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class ScrabbleFrame extends JFrame implements ScrabbleView {
@@ -14,10 +15,34 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
     private BoardModel model = new BoardModel();
     private BoardController controller = new BoardController(this, model);
     private Tray trayPlayer1, trayPlayer2;
+    private JMenuBar menuBar;
+    private JMenu menu;
+    JMenuItem save, load, undo, redo;
 
     public ScrabbleFrame(String title) {
         super(title);
         model.addViews(this);
+
+        //set up menu items
+        menuBar = new JMenuBar();
+        menu = new JMenu("Game Controls");
+        undo = new JMenuItem("Undo");
+        redo = new JMenuItem("Redo");
+        save = new JMenuItem("Save");
+        load = new JMenuItem("Load");
+
+        menu.add(undo);
+        menu.add(redo);
+        menu.add(save);
+        menu.add(load);
+        menuBar.add(menu);
+        this.setJMenuBar(menuBar);
+        save.addActionListener(controller);
+        undo.addActionListener(controller);
+        redo.addActionListener(controller);
+        load.addActionListener(controller);
+
+
         GridBagLayout gb = new GridBagLayout();
         GridBagConstraints c = new GridBagConstraints();
         setLayout(gb);
@@ -142,6 +167,7 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
         c.gridheight = 1;
         add(player2Panel, c);
 
+        model.setIsAi(true);
         setPlayerComponents();
         setSize(new Dimension(975, 630));
         setVisible(true);
@@ -175,6 +201,26 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
         ScrabbleFrame f = new ScrabbleFrame("Scrabble Game");
     }
 
+    public void exportGame(String filename){
+        try {
+            model.save(filename);
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(this, "Game not found");
+            throw new RuntimeException(e);
+        }
+    }
+
+    public BoardModel importGame(String filename){
+        try {
+            this.model = model.load(filename);
+            return this.model;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
     private void updateTray() {
         for(int i = 0; i < 7; i ++){
             player1tiles.get(i).changeValue(trayPlayer1.getTray().get(i));
