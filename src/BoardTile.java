@@ -5,19 +5,16 @@ public class BoardTile extends JButton {
 
     private Point p;
     private Character c;
-    private int value;
 
-    public BoardTile(Character c) {
+    public BoardTile(Character c, Point p) {
         super(String.valueOf(c));
-        this.value = value;
+        this.p = p;
     }
     public void setC(Character c){
         setText(c.toString());
     }
-
-    public void setP(int x, int y){
-        p = new Point(x,y);
-    }
     public Point getP(){return p;}
-
+    public Character getC() {
+        return this.c;
+    }
 }

@@ -16,6 +16,11 @@ public class Move {
     boolean isValid = true;
 
     public Move(ArrayList<TileMove> tileMoves) {
+        points = new ArrayList<>();
+        for(TileMove t: tileMoves){
+            points.add(t.getPoint());
+        }
+        checkContinuity(points);
         sortMoves(tileMoves);
     }
     public Move(String word, boolean isSuffix, Point aiPoint, boolean isHorizontal) {
@@ -109,8 +114,11 @@ public class Move {
             }
         }
         if((isHorizontal && !isVertical) || (isVertical && !isHorizontal) ){
+            isValid = true;
+            System.out.println("IsValid: " + isValid);
             return true;
         }
+        isValid = false;
         return false;
     }
     public void sort(){

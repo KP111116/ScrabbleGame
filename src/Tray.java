@@ -5,25 +5,31 @@ public class Tray {
     private Bag b;
 
     public Tray(ArrayList<Character> tray, Bag b) {
-        super();
         this.tray = tray;
         this.b = b;
     }
     public void refill(){
-        while(this.tray.size() <= 7){
+        while(this.tray.size() < 7){
             this.tray.add(this.b.getNewAlphabet());
         }
     }
-    public void addAlphabet(Character _alphabet){
+    private void addAlphabet(Character _alphabet){
         if(this.tray.size() <= 7) {
             this.tray.add(_alphabet);
         }
+    }
+    public boolean swapAlphabet(char c){
+        if(this.contains(c)){
+            b.returnAlphabet(c);
+            this.tray.add(b.getNewAlphabet());
+            return true;
+        }
+        return false;
     }
     public int getSize(){
         return this.tray.size();
     }
 
-    //checks if the created word is in the tray
     public boolean checkString(char s){
         return tray.contains(s);
     }

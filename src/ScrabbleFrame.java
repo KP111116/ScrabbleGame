@@ -2,80 +2,95 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class ScrabbleFrame extends JFrame implements ScrabbleView{
-    JPanel matrixPanel, player1Panel = new JPanel(), player2Panel= new JPanel();
-    JButton submitPlayer1, submitPlayer2, clearPlayer1, clearPlayer2;
-    private JLabel player1Label, player2Label, scorePlayer1, scorePlayer2;
-    private int player1Score, player2Score;
-    private BoardTile[][] cells;
-    private BoardModel model = new BoardModel();
-    private BoardController controller = new BoardController(this,model);
-    private Tray trayPlayer1, trayPlayer2;
-    public ArrayList<ScrabbleTile> tray1, tray2;
-    private Character[][] matrix;
+public class ScrabbleFrame extends JFrame implements ScrabbleView {
     public boolean isPlayer1;
-    public ScrabbleFrame(String title){
+    JPanel matrixPanel, player1Panel, player2Panel;
+    JButton submitPlayer1, submitPlayer2, clearPlayer1, clearPlayer2, swapPlayer1,swapPlayer2;
+    private JLabel player1Label, player2Label, scorePlayer1, scorePlayer2;
+    private ArrayList<ScrabbleTile> player1tiles, player2tiles;
+    private int player1Score, player2Score;
+    private boolean isAIplaying;
+    private BoardTile[][] cells = new BoardTile[15][15];
+    private BoardModel model = new BoardModel();
+    private BoardController controller = new BoardController(this, model);
+    private Tray trayPlayer1, trayPlayer2;
+
+    public ScrabbleFrame(String title) {
         super(title);
-        model.addViews(this);
-        tray1 = new ArrayList<>();
-        tray2=new ArrayList<>();
         GridBagLayout gb = new GridBagLayout();
         GridBagConstraints c = new GridBagConstraints();
         setLayout(gb);
+        isPlayer1 = model.isPlayer1();
+        trayPlayer1 = model.getTrayPlayer1();
+        trayPlayer2 = model.getTrayPlayer2();
         //set up panels
-        player1Panel = new JPanel(new GridLayout(13,3,10,10));
-        matrixPanel = new JPanel(new GridLayout(15,15,3,3));
-        player2Panel = new JPanel(new GridLayout(13,3,10,10));
-        player1Panel.setBorder(BorderFactory.createEtchedBorder(Color.BLACK,Color.darkGray));
-        player2Panel.setBorder(BorderFactory.createEtchedBorder(Color.BLACK,Color.darkGray));
+        player1Panel = new JPanel(new GridLayout(13, 1, 10, 10));
+        matrixPanel = new JPanel(new GridLayout(16, 16, 3, 3));
+        player2Panel = new JPanel(new GridLayout(13, 1, 10, 10));
+
+
+        player1Panel.setBorder(BorderFactory.createEtchedBorder(Color.BLACK, Color.darkGray));
+        player2Panel.setBorder(BorderFactory.createEtchedBorder(Color.BLACK, Color.darkGray));
 
         //set up components for player 1
-        player1Label = new JLabel("<html><font size = 4>    Player 1    </font></html>",SwingConstants.CENTER);
+        player1Label = new JLabel("<html><font size = 4>    Player 1    </font></html>", SwingConstants.CENTER);
         player1Panel.add(player1Label);
-        scorePlayer1 = new JLabel("Score :" + this.player1Score,SwingConstants.CENTER);
+        scorePlayer1 = new JLabel("Score :" + this.player1Score, SwingConstants.CENTER);
         player1Panel.add(scorePlayer1);
 
-
-
         //set up components for player 2
-        player2Label = new JLabel("<html><font size = 4>    Player 2    </font></html>",SwingConstants.CENTER);
+        player2Label = new JLabel("<html><font size = 4>    Player 2    </font></html>", SwingConstants.CENTER);
         player2Panel.add(player2Label);
-        scorePlayer2 = new JLabel("Score :" + this.player2Score,SwingConstants.CENTER);
+        scorePlayer2 = new JLabel("Score :" + this.player2Score, SwingConstants.CENTER);
         player2Panel.add(scorePlayer2);
 
-        for(Character i: trayPlayer1.getTray()){
-            if(tray1.size() < 7) {
-                ScrabbleTile t = new ScrabbleTile(i);
-                t.addActionListener(controller);
-                player1Panel.add(t);
-                tray1.add(t);
-            }
-        }
-        for(Character i: trayPlayer2.getTray()){
-            if(tray2.size() < 7) {
-                ScrabbleTile t = new ScrabbleTile(i);
-                t.addActionListener(controller);
-                player2Panel.add(t);
-                tray2.add(t);
-            }
-        }
-        updateTray();
-
         char a = 'a';
-        cells = new BoardTile[15][15];
+
         //set up matrix components
-        for(int i = 0; i < 15; i++){
-            for(int j = 0; j < 15; j++){
-
-                    cells[i][j] = new BoardTile(matrix[i][j]);
-                    cells[i][j].setP(j,i);
+        for (int i = -1; 15 > i; i++) {
+            for (int j = -1; 15 > j; j++) {
+                if ((i == -1) && (j == -1)) {
+                    JLabel jLabel = new JLabel("*");
+                    jLabel.setHorizontalAlignment(SwingConstants.CENTER);
+                    jLabel.setVerticalAlignment(SwingConstants.CENTER);
+                    matrixPanel.add(jLabel);
+                } else if (i == -1) {
+                    JLabel jLabel = new JLabel((char) ('a' + j) + "");
+                    jLabel.setHorizontalAlignment(SwingConstants.CENTER);
+                    jLabel.setVerticalAlignment(SwingConstants.CENTER);
+                    matrixPanel.add(jLabel);
+                } else if (j == -1) {
+                    JLabel jLabel = new JLabel(" " + (i));
+                    jLabel.setHorizontalAlignment(SwingConstants.CENTER);
+                    jLabel.setVerticalAlignment(SwingConstants.CENTER);
+                    matrixPanel.add(jLabel);
+                } else {
+                    cells[i][j] = new BoardTile(' ', new Point(j, i));
                     cells[i][j].addActionListener(controller);
-
-                    cells[i][j].setBackground(Color.GREEN);
+                    cells[i][j].setBackground(Color.green);
                     matrixPanel.add(cells[i][j]);
+                }
             }
         }
+        player1tiles = new ArrayList<>(7);
+        player2tiles = new ArrayList<>(7);
 
+        for (int i = 0; i < 7; i++) {
+            player1tiles.add(new ScrabbleTile(trayPlayer1.getTray().get(i)));
+            player2tiles.add(new ScrabbleTile(trayPlayer2.getTray().get(i)));
+            player1tiles.get(i).setBorder(BorderFactory.createEmptyBorder());
+            player2tiles.get(i).setBorder(BorderFactory.createEmptyBorder());
+            player1tiles.get(i).addActionListener(controller);
+            player2tiles.get(i).addActionListener(controller);
+            player1Panel.add(player1tiles.get(i));
+            player2Panel.add(player2tiles.get(i));
+        }
+
+
+        swapPlayer1 = new JButton("Swap Character");
+        swapPlayer2 = new JButton("Swap Character");
+        swapPlayer1.setActionCommand("swap");
+        swapPlayer2.setActionCommand("swap");
         clearPlayer1 = new JButton("Clear");
         clearPlayer1.setActionCommand("clear");
         clearPlayer2 = new JButton("Clear");
@@ -88,10 +103,14 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView{
         player2Panel.add(submitPlayer2);
         player1Panel.add(clearPlayer1);
         player2Panel.add(clearPlayer2);
+        player1Panel.add(swapPlayer1);
+        player2Panel.add(swapPlayer2);
         submitPlayer1.addActionListener(controller);
         submitPlayer2.addActionListener(controller);
         clearPlayer1.addActionListener(controller);
         clearPlayer2.addActionListener(controller);
+        swapPlayer1.addActionListener(controller);
+        swapPlayer2.addActionListener(controller);
 
         JLabel label = new JLabel("S C R A B B L E");
         label.setFont(new Font("Copperplate Gothic Bold", Font.ROMAN_BASELINE, 50));
@@ -103,13 +122,13 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView{
         c.gridy = 0;
         c.gridwidth = 3;
         c.gridheight = 1;
-        add(label,c);
+        add(label, c);
 
         c.gridx = 0;
         c.gridy = 1;
         c.gridwidth = 1;
         c.gridheight = 1;
-        c.insets = new Insets(2,5,2,5);
+        c.insets = new Insets(2, 5, 2, 5);
         add(player1Panel, c);
 
         c.gridx = 1;
@@ -122,79 +141,67 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView{
         c.gridheight = 1;
         add(player2Panel, c);
 
-        model.turn++;
-        setSize(new Dimension(975,630));
+        setPlayerComponents();
+        setSize(new Dimension(975, 630));
         setVisible(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
-    private void updateTray(){
-        for(int i = 0; i < 7; i ++){
-            Character c = trayPlayer1.getTray().get(i);
-
-        }
-        for(Character i: trayPlayer2.getTray()){
-            if(tray2.size() < 7) {
-                ScrabbleTile t = new ScrabbleTile(i);
-                t.addActionListener(controller);
-                player2Panel.add(t);
-                tray2.add(t);
+    private void setPlayerComponents(){
+        if(!isPlayer1){
+            for(Component c: player1Panel.getComponents()){
+                c.setEnabled(false);
             }
-        }
-        if(isPlayer1){
+            for(ScrabbleTile t: player1tiles){
+                t.setBackground(Color.lightGray);
+            }
+        }else{
             for(Component c: player2Panel.getComponents()){
                 c.setEnabled(false);
             }
-            for(Component t: player1Panel.getComponents()){
-                t.setEnabled(true);
-            }
-        }else{
-            for(Component t: player1Panel.getComponents()){
-                t.setEnabled(false);
-            }
-            for (Component t: player2Panel.getComponents()){
-                t.setEnabled(true);
+            for(ScrabbleTile t: player2tiles){
+                t.setBackground(Color.lightGray);
             }
         }
     }
-    private void updateCells(){
-        for(int i = 0; i < 15; i++){
-            for(int j = 0; j < 15; j++){
+    public static void main(String[] args) {
+        ScrabbleFrame f = new ScrabbleFrame("Scrabble Game");
+    }
+
+    private void updateTray() {
+        for(int i = 0; i < 7; i ++){
+            player1tiles.get(i).changeValue(trayPlayer1.getTray().get(i));
+            player2tiles.get(i).changeValue(trayPlayer2.getTray().get(i));
+        }
+    }
+
+    private void updateCells(Character[][] matrix) {
+        for (int i = 0; i < 15; i++) {
+            for (int j = 0; j < 15; j++) {
                 cells[i][j].setText(matrix[i][j].toString());
             }
         }
     }
-    private void updateScore(){
+
+    private void updateScore() {
         scorePlayer1.setText("Score :" + this.player1Score);
         scorePlayer2.setText("Score :" + this.player2Score);
-    }
-
-    public static void main(String[] args) {
-        ScrabbleFrame f = new ScrabbleFrame("Scrabble Game");
     }
 
     @Override
     public void update(ScrabbleEvent e) {
         System.out.println("now in update");
-        System.out.println(e.getBus());
-        if(e.getBus().equals("error")){
-            JOptionPane.showMessageDialog(this, "Put the letter in order, left to right or top to bottom", "Invalid Entry", JOptionPane.ERROR_MESSAGE);
-            model = new BoardModel();
-            controller.clear();
-        } else if (e.getBus().equals("success")) {
-            controller.refreshStack();
-        }
-        this.matrix = e.getMatrix();
         this.player1Score = e.getPlayer1Score();
         this.player2Score = e.getPlayer2Score();
         this.isPlayer1 = e.isPlayer1();
         this.trayPlayer1 = e.getTrayPlayer1();
         this.trayPlayer2 = e.getTrayPlayer2();
-        System.out.println(model.turn);
-        if(model.turn >= 1){
+        isAIplaying = e.isAIplaying();
+        if (!this.model.isMatrixClear()) {
             updateTray();
-            updateCells();
+            updateCells(e.getMatrix());
             updateScore();
+            setPlayerComponents();
         }
     }
 }

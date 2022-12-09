@@ -51,6 +51,9 @@ public class Bag {
         tray.addAll(List.of('g','o','d','o','g','l','e'));
         return tray;
     }
+    public void returnAlphabet(char c){
+        this.arrayOfLetters.add(Character.toUpperCase(c));
+    }
     public int getSize(){
         return this.arrayOfLetters.size();
     }
