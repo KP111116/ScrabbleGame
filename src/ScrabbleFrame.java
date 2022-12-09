@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 
 public class ScrabbleFrame extends JFrame implements ScrabbleView {
@@ -167,7 +168,9 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
         c.gridheight = 1;
         add(player2Panel, c);
 
+        //needs to be removed later
         model.setIsAi(true);
+
         setPlayerComponents();
         setSize(new Dimension(975, 630));
         setVisible(true);
@@ -243,6 +246,7 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
 
     @Override
     public void update(ScrabbleEvent e) {
+        this.model = (BoardModel) e.getSource();
         this.player1Score = e.getPlayer1Score();
         this.player2Score = e.getPlayer2Score();
         this.isPlayer1 = e.isPlayer1();
@@ -251,7 +255,7 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
         isAIplaying = e.isAIplaying();
         System.out.println("now in update " + isPlayer1);
         updateTray();
-        updateCells(e.getMatrix());
+        updateCells(model.getMatrix());
         updateScore();
         setPlayerComponents();
     }
