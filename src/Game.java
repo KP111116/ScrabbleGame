@@ -23,8 +23,7 @@ public class Game {
     public Game() throws IOException {
 
         // Check if there is a previous instance.
-        if (new File("instance.ser").isFile()) {
-            System.out.println("A game instance has been found. Would you like to continue? (y/n)");
+            System.out.println("Would you like to continue from a previous game? (y/n) ");
 
             // Get user input.
             BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -37,9 +36,6 @@ public class Game {
             } else {
                 this._newInstance();
             }
-        } else {
-            this._newInstance();
-        }
     }
 
     /**
@@ -57,8 +53,15 @@ public class Game {
      */
     private ScrabbleFrame _loadInstance() {
         try {
+            // As the user for the file name.
+            System.out.println("Please enter the file name of the previous instance (without .ser): ");
+
+            // Get user input.
+            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+            String filename = br.readLine();
+
             // Let's get the file and build the stream.
-            FileInputStream file = new FileInputStream("instance.ser");
+            FileInputStream file = new FileInputStream(filename + ".ser");
             ObjectInputStream in = new ObjectInputStream(file);
 
             // Read the incoming object

@@ -97,8 +97,10 @@ public class BoardController implements ActionListener, Serializable {
      */
     public void saveInstance(ScrabbleFrame curr){
         try {
+            String pane = JOptionPane.showInputDialog(scrabbleFrame, "Input a file name to save the game to.");
+
             // Lets create a file to save the stream to
-            FileOutputStream fileOut = new FileOutputStream("instance.ser");
+            FileOutputStream fileOut = new FileOutputStream(pane + ".ser");
             ObjectOutputStream out = new ObjectOutputStream(fileOut);
 
             // Now we can write the object to the file
@@ -107,7 +109,7 @@ public class BoardController implements ActionListener, Serializable {
             // Close the file
             out.close();
             fileOut.close();
-            System.out.printf("Serialized data is saved in instance.ser. Killing the game...");
+            System.out.printf("Serialized data is saved in " + pane + ".ser" + ". Killing the game...");
 
             // Kill the game
             System.exit(0);
