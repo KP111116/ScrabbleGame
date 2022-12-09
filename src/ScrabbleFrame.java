@@ -17,6 +17,7 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
 
     public ScrabbleFrame(String title) {
         super(title);
+        model.addViews(this);
         GridBagLayout gb = new GridBagLayout();
         GridBagConstraints c = new GridBagConstraints();
         setLayout(gb);
@@ -149,21 +150,27 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
 
     private void setPlayerComponents(){
         if(!isPlayer1){
-            for(Component c: player1Panel.getComponents()){
-                c.setEnabled(false);
-            }
-            for(ScrabbleTile t: player1tiles){
-                t.setBackground(Color.lightGray);
-            }
+            turnHandOff(player1Panel, player1tiles, player2Panel, player2tiles);
         }else{
-            for(Component c: player2Panel.getComponents()){
-                c.setEnabled(false);
-            }
-            for(ScrabbleTile t: player2tiles){
-                t.setBackground(Color.lightGray);
-            }
+            turnHandOff(player2Panel, player2tiles, player1Panel, player1tiles);
         }
     }
+
+    private void turnHandOff(JPanel player1Panel, ArrayList<ScrabbleTile> player1tiles, JPanel player2Panel, ArrayList<ScrabbleTile> player2tiles) {
+        for(Component c: player1Panel.getComponents()){
+            c.setEnabled(false);
+        }
+        for(ScrabbleTile t: player1tiles){
+            t.setBackground(Color.lightGray);
+        }
+        for(Component c: player2Panel.getComponents()){
+            c.setEnabled(true);
+        }
+        for(ScrabbleTile t: player2tiles){
+            t.setBackground(Color.green);
+        }
+    }
+
     public static void main(String[] args) {
         ScrabbleFrame f = new ScrabbleFrame("Scrabble Game");
     }
@@ -190,18 +197,16 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
 
     @Override
     public void update(ScrabbleEvent e) {
-        System.out.println("now in update");
         this.player1Score = e.getPlayer1Score();
         this.player2Score = e.getPlayer2Score();
         this.isPlayer1 = e.isPlayer1();
         this.trayPlayer1 = e.getTrayPlayer1();
         this.trayPlayer2 = e.getTrayPlayer2();
         isAIplaying = e.isAIplaying();
-        if (!this.model.isMatrixClear()) {
-            updateTray();
-            updateCells(e.getMatrix());
-            updateScore();
-            setPlayerComponents();
-        }
+        System.out.println("now in update " + isPlayer1);
+        updateTray();
+        updateCells(e.getMatrix());
+        updateScore();
+        setPlayerComponents();
     }
 }

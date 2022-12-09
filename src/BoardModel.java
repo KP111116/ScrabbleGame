@@ -53,7 +53,6 @@ public class BoardModel {
 
     public void addViews(final ScrabbleView view) {
         views.add(view);
-        view.update(new ScrabbleEvent(this, this.trayPlayer1, this.trayPlayer2, this.matrix, BoardModel.player1Score, BoardModel.player2Score, this.isPlayer1, isAI));
     }
 
     public Tray getTrayPlayer1() {
@@ -212,15 +211,16 @@ public class BoardModel {
         return word;
     }
     public boolean swapCharacter(char c){
+        System.out.println("Swapping character");
         if(isPlayer1){
             if(trayPlayer1.swapAlphabet(c)){
-                isPlayer1 = false;
                 updateViews();
+                System.out.println("letter swapped: " + c);
+                System.out.println("player1 tray: " +trayPlayer1.getTray());
                 return true;
             }
         }else{
             if(trayPlayer2.swapAlphabet(c)){
-                isPlayer1=true;
                 updateViews();
                 return true;
             }

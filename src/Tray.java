@@ -18,11 +18,22 @@ public class Tray {
             this.tray.add(_alphabet);
         }
     }
-    public boolean swapAlphabet(char c){
+    public boolean swapAlphabet(Character c){
         if(this.contains(c)){
+            tray.remove(tray.indexOf(c));
+            boolean flag = true;
             b.returnAlphabet(c);
-            this.tray.add(b.getNewAlphabet());
-            return true;
+            Character newChar;
+            while(flag) {
+                newChar = b.getNewAlphabet();
+                if(newChar == c){
+                    flag = true;
+                    b.returnAlphabet(newChar);
+                }else {
+                    this.tray.add(newChar);
+                    return true;
+                }
+            }
         }
         return false;
     }

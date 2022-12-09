@@ -53,6 +53,7 @@ public class Bag {
     }
     public void returnAlphabet(char c){
         this.arrayOfLetters.add(Character.toUpperCase(c));
+        Collections.shuffle(this.arrayOfLetters);
     }
     public int getSize(){
         return this.arrayOfLetters.size();
