@@ -1,4 +1,6 @@
-public class TileScoreManager {
+import java.io.Serializable;
+
+public class TileScoreManager implements Serializable {
     public int getTilePoints(Character c) {
             switch (c) {
                 case 'a':

@@ -1,6 +1,7 @@
+import java.io.Serializable;
 import java.util.EventObject;
 
-public class ScrabbleEvent extends EventObject {
+public class ScrabbleEvent extends EventObject implements Serializable {
     private final Tray trayPlayer1;
     private final Tray trayPlayer2;
     private final Character[][] matrix;

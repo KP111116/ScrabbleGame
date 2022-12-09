@@ -1,9 +1,10 @@
 import java.awt.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Stack;
 
-public class BoardModel {
+public class BoardModel implements Serializable {
     public Character[][] matrix;
     /*public int[][] premiumMatrix;*/
     public int turn = 0;
@@ -398,28 +399,6 @@ public class BoardModel {
                     System.out.print("\n");
                 }
             }
-        }
-    }
-
-    public static void main(String[] args) {
-        BoardModel b = new BoardModel();
-        b.setIsAi();
-        //'g','o','d','o','g','l','e'
-        TileMove t0 = new TileMove('g', 6,7);
-        TileMove t1 = new TileMove('o', 7,7);
-
-
-        TileMove t3 = new TileMove('o', 8,7);
-        TileMove t4 = new TileMove('g', 9,7);
-        TileMove t5 = new TileMove('l', 10,7);
-        TileMove t6 = new TileMove('e', 11,7);
-        ArrayList<TileMove> moves = new ArrayList<>();
-        moves.add(t0);
-        moves.add(t1);
-        Move m = new Move(moves);
-        System.out.println(m.getWord());
-        if(b.playMove(m)){
-            b.placement(m);
         }
     }
 }

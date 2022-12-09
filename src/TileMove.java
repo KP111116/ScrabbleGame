@@ -1,7 +1,8 @@
 import java.awt.*;
+import java.io.Serializable;
 import java.util.Comparator;
 
-public class TileMove {
+public class TileMove implements Serializable {
     char c;
     Point p;
 

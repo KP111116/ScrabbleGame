@@ -1,17 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="ea2ae6fe-e34d-4e45-98b5-9e090f9a475d" name="Changes" comment="The GUI needs work, word check does not work for&#10;the controller but it is a work in progress">
-      <change afterPath="$PROJECT_DIR$/src/Move.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/TileMove.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/AIPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AIPlayer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Bag.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Bag.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/BoardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BoardController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/BoardModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BoardModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PlacedWords.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/WordToPlace.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/BoardTile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BoardTile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ButtonController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ButtonController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Move.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Move.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ScrabbleButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ScrabbleButton.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ScrabbleDictionary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ScrabbleDictionary.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ScrabbleEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ScrabbleEvent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ScrabbleFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ScrabbleFrame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ScrabbleTile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ScrabbleTile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/TileMove.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TileMove.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/TileScoreManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TileScoreManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Tray.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tray.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/WordToPlace.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/WordToPlace.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,7 +58,9 @@
     </hideBySeverity>
   </component>
   <component name="ProjectId" id="2HYZcwg3eO0NCczRWZpVgG1HsYt" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -59,7 +73,10 @@
     "WebServerToolWindowFactoryState": "false",
     "extract.method.default.visibility": "private",
     "last_opened_file_path": "C:/Users/patel/IdeaProjects/ScrabbleGame/resources",
-    "project.structure.last.edited": "Artifacts",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
     "run.code.analysis.last.selected.profile": "pProject Default",
@@ -74,37 +91,9 @@
       <recent name="C:\Users\patel\IdeaProjects\ScrabbleGame\resources" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.BoardModel">
-    <configuration name="AIPlayer" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="AIPlayer" />
-      <module name="ScrabbleGame" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="BoardModel" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="BoardModel" />
-      <module name="ScrabbleGame" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Move" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Move" />
-      <module name="ScrabbleGame" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ScrabbleButton" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="ScrabbleButton" />
-      <module name="ScrabbleGame" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ScrabbleFrame" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="ScrabbleFrame" />
+  <component name="RunManager">
+    <configuration name="Game" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Game" />
       <module name="ScrabbleGame" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -112,11 +101,7 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.BoardModel" />
-        <item itemvalue="Application.AIPlayer" />
-        <item itemvalue="Application.Move" />
-        <item itemvalue="Application.ScrabbleFrame" />
-        <item itemvalue="Application.ScrabbleButton" />
+        <item itemvalue="Application.Game" />
       </list>
     </recent_temporary>
   </component>
@@ -133,6 +118,7 @@
       <workItem from="1669054218146" duration="2437000" />
       <workItem from="1669093988922" duration="60938000" />
       <workItem from="1670421299572" duration="26673000" />
+      <workItem from="1670537558979" duration="8598000" />
     </task>
     <task id="LOCAL-00001" summary="the ai checks horizontally and vertically">
       <created>1669159511795</created>
@@ -207,20 +193,19 @@
       <breakpoints>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/src/BoardModel.java</url>
-          <line>245</line>
+          <line>246</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
-        <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/src/BoardModel.java</url>
-          <line>181</line>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/AIPlayer.java</url>
-          <line>43</line>
-          <option name="timeStamp" value="13" />
-        </line-breakpoint>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.io.NotSerializableException" package="java.io" />
+          <option name="timeStamp" value="17" />
+        </breakpoint>
       </breakpoints>
     </breakpoint-manager>
+    <pin-to-top-manager>
+      <pinned-members>
+        <PinnedItemInfo parentTag="java.lang.Character" memberName="value" />
+      </pinned-members>
+    </pin-to-top-manager>
   </component>
 </project>

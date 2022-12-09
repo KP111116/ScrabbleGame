@@ -1,7 +1,8 @@
 import javax.swing.*;
 import java.awt.*;
+import java.io.Serializable;
 
-public class BoardTile extends JButton {
+public class BoardTile extends JButton implements Serializable {
 
     private Point p;
     private Character c;

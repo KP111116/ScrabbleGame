@@ -1,7 +1,8 @@
 import javax.swing.*;
 import java.awt.*;
+import java.io.Serializable;
 
-public class ScrabbleTile extends JButton {
+public class ScrabbleTile extends JButton implements Serializable {
     private Character c;
     private int value;
     private TileScoreManager tsc = new TileScoreManager();

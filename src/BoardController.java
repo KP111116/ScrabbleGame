@@ -1,10 +1,11 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Stack;
 
-public class BoardController implements ActionListener {
+public class BoardController implements ActionListener, Serializable {
 
     private ScrabbleFrame scrabbleFrame;
     private BoardModel model;
@@ -71,6 +72,9 @@ public class BoardController implements ActionListener {
 
 
         }
+        if (b.getActionCommand().equals("save")){
+            this.saveInstance(this.scrabbleFrame);
+        }
     }
     public void refreshStack(){
         stackOfScrabbleTileDropped.clear();
@@ -85,5 +89,32 @@ public class BoardController implements ActionListener {
         }
         stackOfBoardTilesOccupied.clear();
         stackOfScrabbleTileDropped.clear();
+    }
+
+    /**
+     * The following is used for saving a game.
+     * @param curr {@link ScrabbleFrame} to be saved.
+     */
+    public void saveInstance(ScrabbleFrame curr){
+        try {
+            // Lets create a file to save the stream to
+            FileOutputStream fileOut = new FileOutputStream("instance.ser");
+            ObjectOutputStream out = new ObjectOutputStream(fileOut);
+
+            // Now we can write the object to the file
+            out.writeObject(curr);
+
+            // Close the file
+            out.close();
+            fileOut.close();
+            System.out.printf("Serialized data is saved in instance.ser. Killing the game...");
+
+            // Kill the game
+            System.exit(0);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

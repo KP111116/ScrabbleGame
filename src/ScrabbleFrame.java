@@ -1,10 +1,11 @@
 import javax.swing.*;
 import java.awt.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class ScrabbleFrame extends JFrame implements ScrabbleView{
+public class ScrabbleFrame extends JFrame implements ScrabbleView, Serializable {
     JPanel matrixPanel, player1Panel = new JPanel(), player2Panel= new JPanel();
-    JButton submitPlayer1, submitPlayer2, clearPlayer1, clearPlayer2;
+    JButton submitPlayer1, submitPlayer2, clearPlayer1, clearPlayer2, player1Save, player2Save;
     private JLabel player1Label, player2Label, scorePlayer1, scorePlayer2;
     private int player1Score, player2Score;
     private BoardTile[][] cells;
@@ -84,14 +85,23 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView{
         submitPlayer1.setActionCommand("submit");
         submitPlayer2 = new JButton("Submit");
         submitPlayer2.setActionCommand("submit");
+        player1Save = new JButton("Save");
+        player1Save.setActionCommand("save");
+        player2Save = new JButton("Save");
+        player2Save.setActionCommand("save");
+
         player1Panel.add(submitPlayer1);
         player2Panel.add(submitPlayer2);
         player1Panel.add(clearPlayer1);
         player2Panel.add(clearPlayer2);
+        player1Panel.add(player1Save);
+        player2Panel.add(player2Save);
         submitPlayer1.addActionListener(controller);
         submitPlayer2.addActionListener(controller);
         clearPlayer1.addActionListener(controller);
         clearPlayer2.addActionListener(controller);
+        player1Save.addActionListener(controller);
+        player2Save.addActionListener(controller);
 
         JLabel label = new JLabel("S C R A B B L E");
         label.setFont(new Font("Copperplate Gothic Bold", Font.ROMAN_BASELINE, 50));

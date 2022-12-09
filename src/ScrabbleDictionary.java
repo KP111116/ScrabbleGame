@@ -1,10 +1,11 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
-public class ScrabbleDictionary {
+public class ScrabbleDictionary implements Serializable {
 
     private static final String path="resources/Words";
 

@@ -1,8 +1,9 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
+import java.io.Serializable;
 
-public class ScrabbleButton extends JPanel{
+public class ScrabbleButton extends JPanel implements Serializable {
 
     private String _text;
     private Point _p;

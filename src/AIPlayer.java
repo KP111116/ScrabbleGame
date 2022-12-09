@@ -1,8 +1,9 @@
 import java.awt.*;
+import java.io.Serializable;
 import java.util.*;
 import java.util.List;
 
-public class AIPlayer extends BoardModel {
+public class AIPlayer extends BoardModel implements Serializable {
     Character[][] matrix;
     ArrayList<Move> moves;
     private TileScoreManager tileScoreManager = new TileScoreManager();
