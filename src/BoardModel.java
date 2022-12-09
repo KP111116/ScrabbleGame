@@ -2,6 +2,7 @@ import java.awt.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Random;
 import java.util.Stack;
 
 public class BoardModel implements Serializable, Cloneable {
@@ -9,7 +10,7 @@ public class BoardModel implements Serializable, Cloneable {
     private Stack<BoardModel> modelStacks = new Stack<>();
     public Character[][] matrix;
     private ArrayList<WordToPlace> wordsOnMatrix = new ArrayList<>();
-    /*public int[][] premiumMatrix;*/
+    public int[][] premiumMatrix;
     public int turn;
     Stack<WordToPlace> wordsCreated = new Stack<>();
     private final ArrayList<ScrabbleView> views;
@@ -50,25 +51,114 @@ public class BoardModel implements Serializable, Cloneable {
         return m;
     }
 
+
     public void setIsAi(final boolean setAI) {
         this.isAI = setAI;
     }
 
-    //TODO: set premium tiles
-//    public void setPremiumMatrix(int option){
-//        switch (option){
-//            case 0:
-//                normalMatrix();
-//                break;
-//            case 1:
-//                crossMatrix();
-//                break;
-//            case 2:
-//                alternatingMatrix();
-//                break;
-//        }
-//    }
+    public int[][] getPremiumMatrix() {
+        return this.premiumMatrix;
+    }
 
+    //TODO: set premium tiles
+    public int[][] setPremiumMatrix(int option){
+        premiumMatrix = new int[15][15];
+        switch (option){
+            case 0:
+                crossPremiumSquares();
+                break;
+            case 1:
+                randomPattern();
+                break;
+            case 2:
+                alternatingMatrix();
+                break;
+            default:
+                normalMatrix();
+                break;
+        }
+        return getPremiumMatrix();
+
+    }
+    public void normalMatrix(){
+        for (int i = 0; i < 15; i++){
+            for(int j = 0; j < 15; j++){
+                premiumMatrix[i][j] = 1;
+            }
+        }
+    }
+
+    public void alternatingMatrix(){
+        for(int i = 0; i < 15; i++){
+            for(int j = 0; j < 15; j++){
+                if(i %2 == 1 && j %2 == 0){
+                    premiumMatrix[i][j] = 2;
+                }
+                else if(i % 2 == 0 && j % 2 == 1){
+                    premiumMatrix[i][j] = 3;
+                }
+                else {
+                    premiumMatrix[i][j] = 1;
+                }
+            }
+        }
+    }
+    public void randomPattern(){
+        Random r = new Random();
+
+        for (int i = 2; i < 16; i++) {
+            for (int j = 2; j < 16; j++) {
+                premiumMatrix[i-2][j-2] = r.nextInt(3) + 1;
+            }
+        }
+        for (int i = 2; i < 16; i++) {
+            for (int j = 2; j < 16; j++) {
+                if(premiumMatrix[i-2][j-2] == premiumMatrix[i-1][j-1] || premiumMatrix[i-2][j-2] == premiumMatrix[i-1][j-2] || premiumMatrix[i-2][j-2] == premiumMatrix[i-2][j-1]){
+                    premiumMatrix[i-2][j-2] = 1;
+                }
+            }
+        }
+    }
+    public void crossPremiumSquares(){
+
+        for (int i = 0; i < 15; i++) {
+            for (int j = 0; j < 15; j++) {
+                if (i == j || i == 15 - 1 - j) {
+                    if(i %2 == 1 && j%2 == 1){
+                        premiumMatrix[i][j] = 3;
+                        continue;
+                    }
+                    premiumMatrix[i][j] = 2;
+                }else{
+                    premiumMatrix[i][j] = 1;
+                }
+            }
+        }
+    }
+
+
+    public void printPremiumMatrix(){
+        for (int i = 0; 15 > i; i++) {
+            if (0 == i) {
+                for (int k = 0; 15 > k; k++) {
+                    if (0 == k) {
+                        System.out.print("\t");
+                    }
+                    System.out.print("\t" + k);
+                }
+                System.out.print("\n\n\n");
+            }
+            for (int j = 0; 15 > j; j++) {
+                if (0 == j) {
+                    System.out.print(i + "\t");
+                }
+                System.out.print("\t" + this.premiumMatrix[i][j]);
+                if (15 == j + 1) {
+                    System.out.print("\n");
+                }
+            }
+        }
+    }
     public void addViews(final ScrabbleView view) {
        // views.clear();
         views.add(view);
@@ -133,6 +223,7 @@ public class BoardModel implements Serializable, Cloneable {
         System.out.println("stack size: " + this.wordsCreated.size());
         final Iterator<WordToPlace> iterator = this.wordsCreated.iterator();
         while (iterator.hasNext()) {
+            int currentScore = 0;
             System.out.println("Calculating score: ");
             final WordToPlace w = iterator.next();
             System.out.println(w);
@@ -141,21 +232,24 @@ public class BoardModel implements Serializable, Cloneable {
             }else{
                 wordsOnMatrix.add(w);
             }
+            int product =  this.getBoardTilePoints(m);
+            System.out.println("Product: " + product);
             final String word = w.getWord();
-            score += this.getBoardTilePoints(m);
             for (final Character c : word.toCharArray()) {
-                score += this.tileScoreManager.getTilePoints(c);
+                currentScore += this.tileScoreManager.getTilePoints(c);
                 System.out.println(c + " : " + this.tileScoreManager.getTilePoints(c));
             }
+            score += currentScore * product;
             System.out.println("Score for this turn : " + score);
         }
+
         this.wordsCreated.clear();
         return score;
     }
-    private int getBoardTilePoints(final Move m) {
-        final int tilePoints = 0;
+    private int getBoardTilePoints(Move m) {
+        int tilePoints = 1;
         for (final TileMove t : m.getTileMoves()) {
-            // tilePoints += premiumMatrix[t.getY()][t.getX()];
+            tilePoints *= premiumMatrix[t.getY()][t.getX()];
         }
         return tilePoints;
     }
@@ -460,22 +554,23 @@ public class BoardModel implements Serializable, Cloneable {
 
     public static void main(final String[] args) {
         final BoardModel b = new BoardModel();
-        b.isAI = true;
+        b.setPremiumMatrix(2);
+        b.printPremiumMatrix();
         //'g','o','d','o','g','l','e'
-        final TileMove t0 = new TileMove('g', 6, 7);
-        final TileMove t1 = new TileMove('o', 7, 7);
-        final TileMove t3 = new TileMove('o', 8, 7);
-        final TileMove t4 = new TileMove('g', 9, 7);
-        final TileMove t5 = new TileMove('l', 10, 7);
-        final TileMove t6 = new TileMove('e', 11, 7);
-        final ArrayList<TileMove> moves = new ArrayList<>();
-        moves.add(t0);
-        moves.add(t1);
-        final Move m = new Move(moves);
-        System.out.println(m.getWord());
-        if (b.playMove(m)) {
-            b.placement(m);
-        }
+//        final TileMove t0 = new TileMove('g', 6, 7);
+//        final TileMove t1 = new TileMove('o', 7, 7);
+//        final TileMove t3 = new TileMove('o', 8, 7);
+//        final TileMove t4 = new TileMove('g', 9, 7);
+//        final TileMove t5 = new TileMove('l', 10, 7);
+//        final TileMove t6 = new TileMove('e', 11, 7);
+//        final ArrayList<TileMove> moves = new ArrayList<>();
+//        moves.add(t0);
+//        moves.add(t1);
+//        final Move m = new Move(moves);
+//        System.out.println(m.getWord());
+//        if (b.playMove(m)) {
+//            b.placement(m);
+//        }
     }
 
     public int getPlayer1Score() {

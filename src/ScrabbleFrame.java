@@ -11,7 +11,7 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
     public boolean isPlayer1, isUndo;
 
     private Stack<ScrabbleEvent> playedEvents, undoneEvents;
-
+    int[][] premiumMatrix;
     JPanel matrixPanel, player1Panel, player2Panel;
     JButton submitPlayer1, submitPlayer2, clearPlayer1, clearPlayer2, swapPlayer1,swapPlayer2;
     private JLabel player1Label, player2Label, scorePlayer1, scorePlayer2;
@@ -24,7 +24,9 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
     private Tray trayPlayer1, trayPlayer2;
     private JMenuBar menuBar;
     private JMenu menu;
-    JMenuItem save, load, undo, redo;
+    JMenuItem save, load, undo, redo, help;
+    JMenu matrixOptions;
+    JMenuItem normalMatrix, crossMatrix, alternatingMatrix, randomMatrix;
     JCheckBoxMenuItem  playWithAI;
 
     public ScrabbleFrame(String title) {
@@ -41,14 +43,37 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
         redo = new JMenuItem("Redo");
         save = new JMenuItem("Save");
         load = new JMenuItem("Load");
+        help = new JMenuItem("HELP");
+        menu.add(help);
+        help.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                helpDisplay();
+            }
+        });
         playWithAI = new JCheckBoxMenuItem("Play with AI");
+        matrixOptions = new JMenu("Matrix Options");
+        normalMatrix = new JMenuItem("Normal");
+        crossMatrix = new JMenuItem("Cross");
+        alternatingMatrix = new JMenuItem("Alternating");
+        randomMatrix = new JMenuItem("Random");
+
+        matrixOptions.add(normalMatrix);
+        matrixOptions.add(crossMatrix);
+        matrixOptions.add(alternatingMatrix);
+        matrixOptions.add(randomMatrix);
+        premiumMatrix = new int[15][15];
+
 
         menu.add(undo);
         menu.add(redo);
         menu.add(save);
         menu.add(load);
         menu.add(playWithAI);
+
+
         menuBar.add(menu);
+        menuBar.add(matrixOptions);
         this.setJMenuBar(menuBar);
         playWithAI.addActionListener(new ActionListener() {
             @Override
@@ -65,6 +90,7 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
         GridBagLayout gb = new GridBagLayout();
         GridBagConstraints c = new GridBagConstraints();
         setLayout(gb);
+
         isPlayer1 = model.isPlayer1();
         trayPlayer1 = model.getTrayPlayer1();
         trayPlayer2 = model.getTrayPlayer2();
@@ -89,6 +115,7 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
         scorePlayer2 = new JLabel("Score :" + this.player2Score, SwingConstants.CENTER);
         player2Panel.add(scorePlayer2);
 
+        premiumMatrix = model.setPremiumMatrix(4);
         char a = 'a';
 
         //set up matrix components
@@ -117,6 +144,38 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
                 }
             }
         }
+        normalMatrix.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                premiumMatrix = model.setPremiumMatrix(4);
+                updateCells(model.getMatrix());
+            }
+        });
+        alternatingMatrix.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                premiumMatrix = model.setPremiumMatrix(2);
+                updateCells(model.getMatrix());
+                matrixOptions.setEnabled(false);
+            }
+        });
+        randomMatrix.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                premiumMatrix = model.setPremiumMatrix(1);
+                updateCells(model.getMatrix());
+                matrixOptions.setEnabled(false);
+            }
+        });
+        crossMatrix.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                premiumMatrix = model.setPremiumMatrix(0);
+                updateCells(model.getMatrix());
+                matrixOptions.setEnabled(false);
+            }
+        });
+
         player1tiles = new ArrayList<>(7);
         player2tiles = new ArrayList<>(7);
 
@@ -191,6 +250,29 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
         setVisible(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
+    public void helpDisplay(){
+        JPanel panel = new JPanel();
+        panel.setLayout(new BorderLayout());
+        JLabel l =new JLabel("COLOR SCHEME");
+        l.setForeground(Color.white);
+        panel.add(l, BorderLayout.NORTH);
+        JLabel l1 = new JLabel("GREEN: 1x your word ");
+        JLabel l2 = new JLabel("CYAN: 2x your word ");
+        JLabel l3 = new JLabel("YELLOW: 3x your word ");
+        l1.setBorder(BorderFactory.createLineBorder(Color.green, 3));
+        l2.setBorder(BorderFactory.createLineBorder(Color.cyan, 3));
+        l3.setBorder(BorderFactory.createLineBorder(Color.yellow, 3));
+        l1.setForeground(Color.green);
+        l2.setForeground(Color.cyan);
+        l3.setForeground(Color.yellow);
+        panel.setBackground(Color.BLACK);
+        panel.add(l1, BorderLayout.WEST);
+        panel.add(l2, BorderLayout.CENTER);
+        panel.add(l3, BorderLayout.EAST);
+        JOptionPane j = new JOptionPane();
+        j.setBackground(Color.white);
+        j.showMessageDialog(this, panel);
+    }
 
     private void setPlayerComponents(){
         if(!isPlayer1){
@@ -250,6 +332,15 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
         for (int i = 0; i < 15; i++) {
             for (int j = 0; j < 15; j++) {
                 cells[i][j].setC(matrix[i][j]);
+                if(premiumMatrix[i][j] == 1){
+                    cells[i][j].setBackground(Color.green);
+                }
+                if(premiumMatrix[i][j] == 2){
+                    cells[i][j].setBackground(Color.cyan);
+                }
+                if(premiumMatrix[i][j] == 3){
+                    cells[i][j].setBackground(Color.yellow);
+                }
             }
         }
     }

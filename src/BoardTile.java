@@ -8,10 +8,12 @@ public class BoardTile extends JButton implements Serializable {
     private Character c;
 
     public BoardTile(Character c, Point p) {
-        super(String.valueOf(c));
+       this.c = c;
         this.p = p;
     }
+
     public void setC(Character c){
+        this.c = c;
         setText(c.toString());
     }
     public Point getP(){return p;}

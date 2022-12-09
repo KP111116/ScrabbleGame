@@ -1,19 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ea2ae6fe-e34d-4e45-98b5-9e090f9a475d" name="Changes" comment="Added load and save functions built in">
-      <change afterPath="$PROJECT_DIR$/resources/redoState.ser" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/undoState.ser" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/undoState1.ser" afterDir="false" />
+    <list default="true" id="ea2ae6fe-e34d-4e45-98b5-9e090f9a475d" name="Changes" comment="We can now play with AI on the GUI, undo/redo still left">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Test.ser" beforeDir="false" afterPath="$PROJECT_DIR$/Test.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AIPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AIPlayer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/BoardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BoardController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ScrabbleGame.iml" beforeDir="false" afterPath="$PROJECT_DIR$/ScrabbleGame.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/BoardModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BoardModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Move.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Move.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ScrabbleEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ScrabbleEvent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/BoardTile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BoardTile.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ScrabbleFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ScrabbleFrame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ScrabbleView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ScrabbleView.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,22 +49,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;extract.method.default.visibility&quot;: &quot;private&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/patel/IdeaProjects/ScrabbleGame/resources&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Artifacts&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "Downloaded.Files.Path.Enabled": "false",
+    "Repository.Attach.Annotations": "false",
+    "Repository.Attach.JavaDocs": "false",
+    "Repository.Attach.Sources": "false",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "extract.method.default.visibility": "private",
+    "last_opened_file_path": "C:/Users/patel/IdeaProjects/ScrabbleGame/resources",
+    "project.structure.last.edited": "Artifacts",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "settings.editor.selected.configurable": "preferences.pluginManager"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="" />
@@ -192,7 +189,14 @@
       <option name="project" value="LOCAL" />
       <updated>1670596877734</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="We can now play with AI on the GUI, undo/redo still left">
+      <created>1670616785939</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1670616785939</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -253,18 +257,10 @@
     <MESSAGE value="The AI is hooked to the MODEL, finally" />
     <MESSAGE value="worked on GUI to make it behave with the new model" />
     <MESSAGE value="Added load and save functions built in" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added load and save functions built in" />
+    <MESSAGE value="We can now play with AI on the GUI, undo/redo still left" />
+    <option name="LAST_COMMIT_MESSAGE" value="We can now play with AI on the GUI, undo/redo still left" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/BoardModel.java</url>
-          <line>195</line>
-          <option name="timeStamp" value="36" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
     <pin-to-top-manager>
       <pinned-members>
         <PinnedItemInfo parentTag="java.lang.Character" memberName="value" />
