@@ -38,7 +38,7 @@ public class ScrabbleDictionary implements Serializable {
         System.out.println("In dictionary, checking " + word);
         return this.dictionary.contains(word);
     }
-    private HashMap<String, Integer> countLetters(String word){
+    public HashMap<String, Integer> countLetters(String word){
         word = word.toLowerCase();
         HashMap<String, Integer> map = new HashMap<>();
         for(Character c: word.toCharArray()){
