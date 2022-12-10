@@ -54,6 +54,11 @@ public class BoardModel implements Serializable, Cloneable {
 
     public void setIsAi(final boolean setAI) {
         this.isAI = setAI;
+        if(!isPlayer1){
+            final AIPlayer ai = new AIPlayer(this, this.matrix, this.trayPlayer2);
+            ai.play();
+            this.isPlayer1 = true;
+        }
     }
 
     public int[][] getPremiumMatrix() {

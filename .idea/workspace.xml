@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ea2ae6fe-e34d-4e45-98b5-9e090f9a475d" name="Changes" comment="We can now play with AI on the GUI, undo/redo still left">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ScrabbleGame.iml" beforeDir="false" afterPath="$PROJECT_DIR$/ScrabbleGame.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/BoardModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BoardModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/BoardTile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BoardTile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ScrabbleFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ScrabbleFrame.java" afterDir="false" />
-    </list>
+    <list default="true" id="ea2ae6fe-e34d-4e45-98b5-9e090f9a475d" name="Changes" comment="THE COLORED BOARDS are readY!" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -196,7 +190,14 @@
       <option name="project" value="LOCAL" />
       <updated>1670616785939</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="THE COLORED BOARDS are readY!">
+      <created>1670625815109</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1670625815109</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -258,7 +259,8 @@
     <MESSAGE value="worked on GUI to make it behave with the new model" />
     <MESSAGE value="Added load and save functions built in" />
     <MESSAGE value="We can now play with AI on the GUI, undo/redo still left" />
-    <option name="LAST_COMMIT_MESSAGE" value="We can now play with AI on the GUI, undo/redo still left" />
+    <MESSAGE value="THE COLORED BOARDS are readY!" />
+    <option name="LAST_COMMIT_MESSAGE" value="THE COLORED BOARDS are readY!" />
   </component>
   <component name="XDebuggerManager">
     <pin-to-top-manager>

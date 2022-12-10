@@ -79,6 +79,7 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
             @Override
             public void actionPerformed(ActionEvent e) {
                 model.setIsAi(playWithAI.isSelected());
+
             }
         });
         save.addActionListener(controller);
